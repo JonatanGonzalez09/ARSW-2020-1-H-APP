@@ -30,6 +30,8 @@ https://happ2020.herokuapp.com/
 Abra los links para observar el diseño de la interfaz gráfica usando el Wireframe **Balsamiq**
 
 [Enfermera jefe](https://balsamiq.cloud/secxh97/pqdt8dm)
+
 [Enfermera Auxiliar](https://balsamiq.cloud/secxh97/p99hqvl/r2278)
+
 [Administrador](https://balsamiq.cloud/secxh97/pl9u9j5/r2278)
 

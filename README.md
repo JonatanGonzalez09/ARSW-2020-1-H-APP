@@ -21,6 +21,15 @@ _Construcción de una plataforma web que apoye las tareas/responsabilidades de l
 
 **Características:** _Las enfermeras jefes y auxiliares podrán tener un reporte en tiempo real de las enfermedades, tratamientos, resultados de examenes, examenes programados  y observaciones de cada paciente asignado en el  turno de cada enfermera y así poder brindarles a los pacientes una mejor atención y cuidado. También le permitirá ver a las enfermeras jefes los pacientes que presenten alguna complicación. Esta debe ser notificada por la auxiliar de enfermería y le llegara un mensaje de alerta a la enfermera jefe para que haga su respectivo procedimiento._
 
+### **Diagrama de Clases** ###
+![](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/diagramaClases.jpg)
+
+### **Casos de Uso** ###
+![](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/casosDeUso.jpg)
+
+### **Entidad Relación** ###
+![](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/entidadRelacion.jpg)
+
 **Link del Drive del proyecto**
 https://drive.google.com/drive/folders/1hvCMZi-28FHQ9eHM8lZRvgDKDoNwJfgX
 
@@ -29,9 +38,11 @@ https://happ2020.herokuapp.com/
 
 Abra los links para observar el diseño de la interfaz gráfica usando el Wireframe **Balsamiq**
 
+[Administrador](https://balsamiq.cloud/secxh97/pl9u9j5/r2278)
+
 [Enfermera jefe](https://balsamiq.cloud/secxh97/pqdt8dm)
 
 [Enfermera Auxiliar](https://balsamiq.cloud/secxh97/p99hqvl/r2278)
 
-[Administrador](https://balsamiq.cloud/secxh97/pl9u9j5/r2278)
+
 

@@ -27,6 +27,34 @@ _Construcción de una plataforma web que apoye las tareas/responsabilidades de l
 ### **Casos de Uso** ###
 ![](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/casosDeUso.jpg)
 
+### **Historias de Usuario** ###
+
+**_Enfermera Jefe_**:
+- **COMO** Enfermera jefe **QUIERO** asignar auxiliares de enfermeria **PARA PODER** conocer la disponibilidad a mis pacientes.
+- **COMO** Enfermera jefe **QUIERO** consultar pacientes **PARA PODER** ver los procedimientos asignados.
+- **COMO** Enfermera jefe **QUIERO** iniciar turno **PARA PODER** indicar el inicio de mi jornada laboral.
+- **COMO** Enfermera jefe **QUIERO** cerrar turno **PARA PODER** indicar el final de mi jornada laboral.
+- **COMO** Enfermera jefe **QUIERO** login app **PARA PODER** ingresar al sistema.
+- **COMO** Enfermera jefe **QUIERO** logout app **PARA PODER** salir del sistema.
+- **COMO** Enfermera jefe **QUIERO** actualizar estados pacientes **PARA PODER** mantener vigente los reportes medicos.
+- **COMO** Enfermera jefe **QUIERO** asignar pacientes a Enfermeras Auxiliares **PARA PODER** distribuir el cuidado de los pacientes en un piso.
+- **COMO** Enfermera jefe **QUIERO** generar informe del paciente **PARA PODER**  mantener al dia el estado del paciente.
+- **COMO** Enfermera jefe **QUIERO** consultar novedades de sus enfermeras auxiliares **PARA PODER** conocer las emergencias que se presenten en los pacientes.
+- **COMO** Enfermera jefe **QUIERO** añadir procedimientos **PARA PODER** mantener actulizados los procedimientos que se les pueden realizar a los pacientes.
+- **COMO** Enfermera jefe **QUIERO** procesar novedades y solicitudes de sus enfermeras **PARA PODER** efectuar las solicitudes de las enfermeras Axuliares.
+- **COMO** Enfermera jefe **QUIERO** solicitar cambio de piso del paciente **PARA PODER** mantener actulizado los cambios en el sistemas
+
+**_Enfermera Auxiliar_**:
+- **COMO** Enfermera Auxiliar **QUIERO** iniciar turno **PARA PODER** indicar el inicio de mi jornada laboral.
+- **COMO** Enfermera Auxiliar **QUIERO** cerrar turno **PARA PODER** indicar el final de mi jornada laboral.
+- **COMO** Enfermera Auxiliar **QUIERO** login app **PARA PODER** ingresar al sistema.
+- **COMO** Enfermera Auxiliar **QUIERO** logout app **PARA PODER** salir del sistema.
+- **COMO** Enfermera Auxiliar **QUIERO** solicitar permisos **PARA PODER** asignar mis responsabilidades temporalmente a otra auxiliar, mientras me encuentro descansado en mi turno laboral.
+- **COMO** Enfermera Auxiliar **QUIERO** informar novedades **PARA PODER** aletar de una situacion critica de un paciente.
+- **COMO** Enfermera Auxiliar **QUIERO** actualizar estado de procedimientos de sus pacientes **PARA PODER** dar el reporte medico de si se han realizado o no.
+- **COMO** Enfermera Auxiliar **QUIERO** consultar estado de un paciente **PARA PODER** verificar su situacion actual o si tiene procemientos pendientes.
+- **COMO** Enfermera Auxiliar **QUIERO** consultar pacientes asignados **PARA PODER** atender a los pacientes acargo.
+
 ### **Entidad Relación** ###
 ![](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/entidadRelacion.jpg)
 

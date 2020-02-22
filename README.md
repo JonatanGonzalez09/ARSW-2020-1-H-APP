@@ -29,6 +29,18 @@ _Construcción de una plataforma web que apoye las tareas/responsabilidades de l
 
 ### **Historias de Usuario** ###
 
+**_Administrador_**:
+ - **COMO** Administrador **QUIERO** iniciar sesión **PARA PODER** administrar H-APP y sus recursos.
+ - **COMO** Administrador **QUIERO** cerrar sesión **PARA PODER** garantizar la integridad de la información.
+ - **COMO** Administrador **QUIERO** agregar enfermero/a **PARA PODER** añadirlo al sistema del hospital.
+ - **COMO** Administrador **QUIERO** agregar un piso **PARA PODER** habilitar una nueva zona para pacientes.
+ - **COMO** Administrador **QUIERO** consultar el personal activo **PARA PODER** consultar los recursos humanos disponibles en el hospital.
+ - **COMO** Administrador **QUIERO** modificar un piso **PARA PODER** asignar un nuevo número de camas.
+ - **COMO** Administrador **QUIERO** modificar un piso **PARA PODER** habilitar las habitaciones.
+ - **COMO** Administrador **QUIERO** modificar un piso **PARA PODER** deshabilitar las habitaciones.
+ - **COMO** Administrador **QUIERO** modificar los enfermero/a **PARA PODER** actualizar sus datos.
+ - **COMO** Administrador **QUIERO** modificar los enfermero/a **PARA PODER** actualizar darles de alta en el sistema.
+
 **_Enfermera Jefe_**:
 - **COMO** Enfermera jefe **QUIERO** asignar auxiliares de enfermeria **PARA PODER** conocer la disponibilidad a mis pacientes.
 - **COMO** Enfermera jefe **QUIERO** consultar pacientes **PARA PODER** ver los procedimientos asignados.

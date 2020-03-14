@@ -1,4 +1,4 @@
-package edu.eci.arsw.happ.happapi.service;
+package edu.eci.arsw.happ.service;
 
 public class HappException extends Exception{
 

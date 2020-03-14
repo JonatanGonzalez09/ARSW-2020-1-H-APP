@@ -1,4 +1,4 @@
-package edu.eci.arsw.happ.happapi.model;
+package edu.eci.arsw.happ.model;
 
 public class Room {
     private int idRoom;

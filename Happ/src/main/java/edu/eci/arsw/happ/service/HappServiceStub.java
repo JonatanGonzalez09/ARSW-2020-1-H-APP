@@ -1,11 +1,11 @@
-package edu.eci.arsw.happ.happapi.service;
+package edu.eci.arsw.happ.service;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.springframework.stereotype.Service;
 
-import edu.eci.arsw.happ.happapi.model.NurseAssistant;
+import edu.eci.arsw.happ.model.NurseAssistant;
 
 @Service
 public class HappServiceStub implements HappService {

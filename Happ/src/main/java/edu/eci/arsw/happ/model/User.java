@@ -1,4 +1,4 @@
-package edu.eci.arsw.happ.happapi.model;
+package edu.eci.arsw.happ.model;
 
 public class User {
     protected static String idDocument;
@@ -6,9 +6,9 @@ public class User {
     protected static String name;
 
     public User(String idDocument, String documentType, String name){
-        User.idDocument = idDocument;
-        User.documentType = documentType;
-        User.name = name;
+        this.idDocument = idDocument;
+        this.documentType = documentType;
+        this.name = name;
     }
 
     public String getIdDocumentUser() {
@@ -24,14 +24,14 @@ public class User {
     }
 
     public void setIdDocuement(String idDocuement) {
-        User.idDocument = idDocuement;
+        this.idDocument = idDocuement;
     }
 
     public void setDocumentType(String documentType ) {
-        User.documentType = documentType;
+        this.documentType = documentType;
     }
 
     public void setName(String name ) {
-        User.name = name;
+        this.name = name;
     }
 }

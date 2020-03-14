@@ -1,4 +1,4 @@
-package edu.eci.arsw.happ.happapi.model;
+package edu.eci.arsw.happ.model;
 
 public class MedicalSupplies{
     private int code;

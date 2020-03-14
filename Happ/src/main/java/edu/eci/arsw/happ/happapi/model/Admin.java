@@ -1,4 +1,4 @@
-package happ.model;
+package edu.eci.arsw.happ.happapi.model;
 
 public class Admin extends User {
 

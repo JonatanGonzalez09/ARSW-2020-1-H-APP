@@ -2,24 +2,38 @@ package edu.eci.arsw.happ.model;
 
 public class Admin extends User {
 
+    protected static String idDocument;
+    protected static String documentType;
+    protected static String name;
+
     public Admin(String idDocument, String documentType, String name) {
         super(idDocument, documentType, name);
     }
 
-    public void createNurse(){
-
+    public String getIdDocumentAdmin() {
+        return idDocument;
     }
 
-    public void updateNurse(){
-        
+    public String getDocumentTypeAdmin() {
+        return documentType;
     }
 
-    public void createFloor(){
-        
+    public String getNameAdmin() {
+        return name;
     }
 
-    public void updateFloor(){
-        
+    public void setIdDocuementAdmin(String idDocuement) {
+        this.idDocument = idDocuement;
     }
+
+    public void setDocumentTypeAdmin(String documentType ) {
+        this.documentType = documentType;
+    }
+
+    public void setNameAdmin(String name ) {
+        this.name = name;
+    }
+
+
 }
     

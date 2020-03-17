@@ -1,58 +1,54 @@
 package edu.eci.arsw.happ.model;
 
-import java.util.ArrayList;
+import java.sql.Date;
 
 public class ChiefNurse extends Nurse {
+    
+    private Date startShiftTurnChiefNurse;
+    private Date endShiftTurnChiefNurse;
+    private int assignedFloorChiefNurse;
 
     public ChiefNurse(String idDocument, String documentType, String name) {
         super(idDocument, documentType, name);
     }
 
-    public ArrayList<Patient> getPatient(){
-        return null;
+    public Date getStartShiftTurnChiefNurse(){
+        return startShiftTurnChiefNurse;
     }
 
-    public void assignPatientOnFloor (Patient persona){
-
+    public Date getEndShiftTurnChiefNurse(){
+        return endShiftTurnChiefNurse;
     }
 
-    public void updatePatient(Patient persona){
-        
+    public int getAssignedFloorChiefNurse(){
+        return assignedFloorChiefNurse;
     }
 
-    public void createProcedures(){
-
+    public void setStartShiftTurnChiefNurse(Date startShiftTurnChiefNurse){
+        this.startShiftTurnChiefNurse = startShiftTurnChiefNurse;
     }
 
-    public void solicitudCambioDePisoPaciente(Floor piso){
-
+    public void setEndShiftTurnChiefNurse(Date endShiftTurnChiefNurse){
+        this.endShiftTurnChiefNurse = endShiftTurnChiefNurse;
     }
 
-    public ArrayList<Patient> getPatientsState(){
-        return null;
+    public void setAssignedFloorChiefNurse(int assignedFloorChiefNurse){
+        this.assignedFloorChiefNurse = assignedFloorChiefNurse;
     }
 
-    public void asignacionTareasEnfermeraAuxiliar(NurseAssistant persona){
-
+    public int getPatientChiefNurse(Patient id){
+        return id.getIdPatient();
     }
 
-    public ArrayList<String> getAssistantsTaskState(){
-        return null;
+    public String getIdDocumentChiefNurse(){
+        return Nurse.idDocument;
     }
 
-    public ArrayList<Patient> generarReportMedicoPaciente(){
-        return null;
+    public String getDocumentTypeChiefNurse(){
+        return Nurse.documentType;
     }
 
-    public void asignarEnferneraAuxiliarAPiso (NurseAssistant enfermera){
-
-    }
-
-    public ArrayList<String> consultarEstadoResponsabilidadesAuxiliares(NurseAssistant enfermera){
-        return null;
-    }
-
-    public void consultarAlertasAuxiliares(NurseAssistant auxiliar){
-
+    public String getNameChiefNurse(){
+        return Nurse.name;
     }
 }

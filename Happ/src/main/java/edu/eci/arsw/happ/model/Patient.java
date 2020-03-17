@@ -10,6 +10,18 @@ public class Patient extends User {
         super(idDocument, documentType, name);
     }
 
+    public String getIdDocumentAdmin() {
+        return this.idDocument;
+    }
+
+    public String getDocumentTypeAdmin() {
+        return this.documentType;
+    }
+
+    public String getNameAdmin() {
+        return this.name;
+    }
+
     public int getIdPatient(){
         return idPatient;
     }
@@ -34,23 +46,4 @@ public class Patient extends User {
         this.birthDay = birthDay;
     }
 
-    public void updateProcedures(){
-
-    }
-
-    public void assignProcedures(){
-
-    }
-
-    public void getProcedures(){
-
-    }
-
-    public void assignRoom(){
-
-    }
-
-    public void updateRoom(){
-
-    }
 }

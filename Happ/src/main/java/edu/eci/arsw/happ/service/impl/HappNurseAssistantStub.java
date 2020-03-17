@@ -9,15 +9,20 @@ import edu.eci.arsw.happ.model.Floor;
 import edu.eci.arsw.happ.model.Nurse;
 import edu.eci.arsw.happ.model.Patient;
 import edu.eci.arsw.happ.model.Task;
+import edu.eci.arsw.happ.persistence.HappNurseAssistantPersistence;
 import edu.eci.arsw.happ.persistence.HappPersistenceException;
 import edu.eci.arsw.happ.service.HappNurseAssistant;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  * @author jualm
  */
 public class HappNurseAssistantStub implements HappNurseAssistant {
+    
+    @Autowired
+    HappNurseAssistantPersistence Hp = null;
 
     @Override
     public Nurse getCurrentNurseAssistant(String idDocument) throws HappPersistenceException {

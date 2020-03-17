@@ -42,7 +42,7 @@ public class HappNurseAssistantController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(path ="/patients",method = RequestMethod.GET)
     public ResponseEntity<?> getPatients(@PathVariable ("idDocument") String idDocument) throws HappException {
         try {
             return new ResponseEntity<>(happService.getPatients(idDocument), HttpStatus.ACCEPTED);

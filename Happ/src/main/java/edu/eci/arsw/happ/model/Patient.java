@@ -34,23 +34,4 @@ public class Patient extends User {
         this.birthDay = birthDay;
     }
 
-    public void updateProcedures(){
-
-    }
-
-    public void assignProcedures(){
-
-    }
-
-    public void getProcedures(){
-
-    }
-
-    public void assignRoom(){
-
-    }
-
-    public void updateRoom(){
-
-    }
 }

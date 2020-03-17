@@ -18,8 +18,10 @@ public class HappController {
     HappService happService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> manejadorGETNursesAssistants() throws HappException {
+    public ResponseEntity<?> getNursesAssistants() throws HappException {
         return new ResponseEntity<>(happService.getNurseAssistants(), HttpStatus.ACCEPTED);
     }
+    
+    
 
 }

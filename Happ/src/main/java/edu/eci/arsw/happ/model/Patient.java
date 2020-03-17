@@ -10,15 +10,15 @@ public class Patient extends User {
         super(idDocument, documentType, name);
     }
 
-    public String getIdDocumentAdmin() {
+    public String getIdDocumentPatient() {
         return this.idDocument;
     }
 
-    public String getDocumentTypeAdmin() {
+    public String getDocumentTypePatient() {
         return this.documentType;
     }
 
-    public String getNameAdmin() {
+    public String getNamePatient() {
         return this.name;
     }
 

@@ -32,4 +32,5 @@ public interface HappNurseAssistantPersistence {
     public Task getTask(String idDocument, String taskId) throws HappPersistenceException;
     
     public void updateTask(String idDocument,String taskId, Task newts) throws HappPersistenceException; 
+    
 }

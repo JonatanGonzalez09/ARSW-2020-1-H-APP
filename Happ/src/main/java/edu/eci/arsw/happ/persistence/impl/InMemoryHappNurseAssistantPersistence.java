@@ -11,6 +11,7 @@ import edu.eci.arsw.happ.model.Patient;
 import edu.eci.arsw.happ.model.Task;
 import edu.eci.arsw.happ.persistence.HappNurseAssistantPersistence;
 import edu.eci.arsw.happ.persistence.HappPersistenceException;
+
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ import java.util.List;
  * @author jualme
  */
 public class InMemoryHappNurseAssistantPersistence implements HappNurseAssistantPersistence {
-
+    
     @Override
     public Nurse getCurrentNurseAssistant(String idDocument) throws HappPersistenceException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

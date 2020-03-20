@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 
@@ -19,22 +22,27 @@ public class User {
 	 	@Id
 	    @GeneratedValue(strategy = GenerationType.AUTO)
 	 	@Column(name = "user_id")
-	    private long userId;
+	    private int userId;
 
 	    @Column(nullable = false)
 	    private String username;
 
 	    @Column(nullable = false)
-	    private String password;
+	    private String password;	    
+	    
+	    @OneToOne(mappedBy = "users", cascade = CascadeType.ALL,
+	              fetch = FetchType.LAZY, optional = false)
+	    private Nurse nurse;
 
 	    private boolean active;
 
 	    private String roles = "";
 	    
-	    @Column(nullable = false)
-	    private String gov_id;
+	    @Column(nullable = false, name = "gov_id")
+	    private String govId;
 	    
-	    private String gov_type = "CC";
+	    @Column(name = "govId")
+	    private String govType = "CC";
 	    
 	    @Column(nullable = false)
 	    @Email
@@ -44,8 +52,8 @@ public class User {
 	        this.username = username;
 	        this.password = password;
 	        this.email = email;
-	        this.gov_id = gov_id;
-	        this.gov_type = gov_type;
+	        this.govId = gov_id;
+	        this.govType = gov_type;
 	        this.roles = roles;
 	        this.active = true;
 	    }
@@ -57,10 +65,10 @@ public class User {
 	        }
 	        return new ArrayList<>();
 	    }
-		public long getUserId() {
+		public int getUserId() {
 			return userId;
 		}
-		public void setUserId(long userId) {
+		public void setUserId(int userId) {
 			this.userId = userId;
 		}
 		public String getUsername() {
@@ -86,18 +94,24 @@ public class User {
 		}
 		public void setRoles(String roles) {
 			this.roles = roles;
+		}		
+		public Nurse getNurse() {
+			return nurse;
 		}
-		public String getGov_id() {
-			return gov_id;
+		public void setNurse(Nurse nurse) {
+			this.nurse = nurse;
 		}
-		public void setGov_id(String gov_id) {
-			this.gov_id = gov_id;
+		public String getGovId() {
+			return govId;
 		}
-		public String getGov_type() {
-			return gov_type;
+		public void setGovId(String govId) {
+			this.govId = govId;
 		}
-		public void setGov_type(String gov_type) {
-			this.gov_type = gov_type;
+		public String getGovType() {
+			return govType;
+		}
+		public void setGovType(String govType) {
+			this.govType = govType;
 		}
 		public String getEmail() {
 			return email;

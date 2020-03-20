@@ -6,8 +6,12 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -15,9 +19,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name="nurses")
 public class Nurse implements Serializable {
+	
 	@Id
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "nurse_id", referencedColumnName = "user_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name= "nurse_Id")
+	private int nurseId;
+	
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@MapsId
     private User users;
 	
 	@Column(nullable = false)
@@ -66,6 +75,14 @@ public class Nurse implements Serializable {
 
 	public String getRh() {
 		return rh;
+	}
+
+	public int getNurseId() {
+		return nurseId;
+	}
+
+	public void setNurseId(int nurseId) {
+		this.nurseId = nurseId;
 	}
 
 	public void setRh(String rh) {

@@ -41,7 +41,7 @@ public class User {
 	    @Column(nullable = false, name = "gov_id")
 	    private String govId;
 	    
-	    @Column(name = "govId")
+	    @Column(name = "gov_type")
 	    private String govType = "CC";
 	    
 	    @Column(nullable = false)

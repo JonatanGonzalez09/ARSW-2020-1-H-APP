@@ -17,7 +17,7 @@ public class Undergoes {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "undergoes_id")
-    private long undergoesId;
+    private int undergoesId;
 	
 	private int procedure;
 	
@@ -28,13 +28,17 @@ public class Undergoes {
 	@Column(name = "nurse_id")
 	private int nurseId;
 	
+	private boolean done;
+	
+	private Timestamp doneDate;
+	
 	public Undergoes() {}
 
-	public long getUndergoesId() {
+	public int getUndergoesId() {
 		return undergoesId;
 	}
 
-	public void setUndergoesId(long undergoesId) {
+	public void setUndergoesId(int undergoesId) {
 		this.undergoesId = undergoesId;
 	}
 
@@ -52,6 +56,14 @@ public class Undergoes {
 
 	public void setStay(int stay) {
 		this.stay = stay;
+	}	
+
+	public boolean isDone() {
+		return done;
+	}
+
+	public void setDone(boolean done) {
+		this.done = done;
 	}
 
 	public Timestamp getDate() {
@@ -60,6 +72,14 @@ public class Undergoes {
 
 	public void setDate(Timestamp date) {
 		this.date = date;
+	}	
+
+	public Timestamp getDoneDate() {
+		return doneDate;
+	}
+
+	public void setDoneDate(Timestamp doneDate) {
+		this.doneDate = doneDate;
 	}
 
 	public int getNurseId() {

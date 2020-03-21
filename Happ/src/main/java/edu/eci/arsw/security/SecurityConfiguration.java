@@ -31,8 +31,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/index.html").permitAll()
                 .antMatchers("/profile/**").authenticated()
+                .antMatchers("/nurseAssistant/**").hasRole("ASSISTANT")
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/management/**").hasAnyRole("ADMIN", "MANAGER")
+                .antMatchers("/test/**").authenticated()
+                .antMatchers("/nurse/**").hasAnyRole("MANAGER")
                 .and()
                 .httpBasic();
     }

@@ -22,6 +22,8 @@ public class NurseAssistantService {
 	private OncallPersistence oncallPersistence;
 	@Autowired
 	private UndergoesPersistence undergoesPersistence;
+	@Autowired
+	private ProcedurePersistence procedurePersistence;
 	
 	//----------------User-----------------------
 	
@@ -77,6 +79,25 @@ public class NurseAssistantService {
 		tmp.setDone(undergoes.isDone());
 		tmp.setDoneDate(undergoes.getDoneDate());
 		return undergoesPersistence.save(tmp);		
+	}
+
+	//-----------------Procedures-------------
+	public Procedure getProcedure(int idProcedure){
+		return procedurePersistence.findById(idProcedure)
+				.orElseThrow(() -> new EntityNotFoundException(String.valueOf(idProcedure)));
+	}
+
+	public List<Procedure> getAllProcedures(){
+		return procedurePersistence.findAll();
+	}
+
+	public Procedure updateProcedure(Procedure procedure) {
+		Procedure tmp = procedurePersistence.getOne((int) procedure.getId());
+		tmp.setDescription(procedure.getDescription());
+		tmp.setId(procedure.getId());
+		tmp.setName(procedure.getName());
+		tmp.setUndergoes(procedure.getUndergoes());
+		return procedurePersistence.save(tmp);
 	}
 
 }

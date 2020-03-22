@@ -32,6 +32,10 @@ public class Block {
 		
 	public Block() {}
 
+	public int getBlockCode(){
+		return this.blockcode;
+	}
+
 	public int getBlockfloor() {
 		return blockfloor;
 	}

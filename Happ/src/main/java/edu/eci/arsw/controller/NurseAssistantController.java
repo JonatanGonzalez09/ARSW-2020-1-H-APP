@@ -11,30 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.eci.arsw.service.AdminService;
-
+import edu.eci.arsw.service.NurseAssistantService;
 import edu.eci.arsw.model.User;
 
 @RestController
 @RequestMapping("test")
-public class HappAPIController {
+public class NurseAssistantController {
 	
-	private AdminService adminService;
+	@Autowired
+	private NurseAssistantService nurseAssistantService;
 
-    public HappAPIController(AdminService adminService){
-        this.adminService = adminService;
+	@GetMapping("patients")
+    public List<User> patients(){
+		return null;
     }
-	
-	@GetMapping("users")
-    public List<User> users(){		
-        return this.adminService.getAllUsers();
-    }
-	
-	@GetMapping("loged")
-	public User loged() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String tmp = auth.getName();
-		return adminService.getUser(tmp);
-	}
-	
-	
 }

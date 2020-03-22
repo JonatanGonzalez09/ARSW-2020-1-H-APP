@@ -46,24 +46,14 @@ public class AdminController {
         return this.adminService.getAllBlocks();
     }
 
-    /* @RequestMapping(method = RequestMethod.POST, value="/boss-nurses")
+    @RequestMapping(method = RequestMethod.POST, value="/new-boss-nurses")
     public void addNurse(@RequestBody Nurse nurse){
         adminService.setNurse(nurse.getUsers(), nurse);
-    } */
-
-    @PostMapping
-    public Nurse addNurse(@RequestBody Nurse nurse){
-        return adminService.setNurse(nurse.getUsers(), nurse);
     }
 
-   /*  @RequestMapping(method = RequestMethod.POST, value="/blocks")
+    @RequestMapping(method = RequestMethod.POST, value="/new-block")
     public void addBlock(@RequestBody Block block){
         adminService.setBlock(block);
-    } */
-
-    @PostMapping
-    public Block addBlock(@RequestBody Block block){
-        return adminService.setBlock(block);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/nurses/{nurseId}")

@@ -19,19 +19,20 @@ import edu.eci.arsw.model.Patient;
 import edu.eci.arsw.model.Procedure;
 import edu.eci.arsw.model.Stay;
 import edu.eci.arsw.model.Undergoes;
-import edu.eci.arsw.persistence.PatientPersistence;
 
 @RestController
-@RequestMapping("test")
+@RequestMapping("assistant-nurse")
 public class NurseAssistantController {
 	
 	@Autowired
 	private NurseAssistantService nurseAssistantService;
 
-	@GetMapping("patients/{idNurse}")
-	public List<Patient> getAllPatiens(@PathVariable ("idNurse") int idNurse){
+	@GetMapping("patients")
+	public List<Patient> getAllPatiens(){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String tmp = auth.getName();
+		Nurse nurse = nurseAssistantService.getUser(tmp).getNurse();
 		List<Patient> allPatient = nurseAssistantService.getAllPatient();
-		Nurse nurse = nurseAssistantService.getNurse(idNurse);
 		List<Patient> patientByidNurse = new ArrayList<Patient>();
 		List<Undergoes> undergoes = nurse.getUndergoes();
 		for (int i=0; i < allPatient.size(); i++){
@@ -45,10 +46,19 @@ public class NurseAssistantController {
 		return patientByidNurse;
 	}
 
+	@GetMapping("states")
+	public List<Procedure> getStatesPatients(){
+		return nurseAssistantService.getAllProcedures();
+	}
+
+
+
 	@GetMapping("/state/{idPatient}")
-	public String getStatePatient(@PathVariable ("idPatient") int idPatient, @PathVariable ("idNurse") int idNurse){
-		Patient patient = nurseAssistantService.getPatient(idPatient);
-		Nurse nurse = nurseAssistantService.getNurse(idNurse);
+	public String getStatePatient(@PathVariable ("idPatient") long idPatient){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String tmp = auth.getName();
+		Nurse nurse = nurseAssistantService.getUser(tmp).getNurse();
+		Patient patient = nurseAssistantService.getPatient((int)idPatient);
 		List<Undergoes> undergoes = nurse.getUndergoes();
 		int idProcedure = 0;
 		for (int i=0; i < undergoes.size(); i++ ){

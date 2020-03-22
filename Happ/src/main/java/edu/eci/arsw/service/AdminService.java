@@ -65,7 +65,7 @@ public class AdminService {
 				.orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
 	}
 	
-	public Nurse setnurse(User user, Nurse nurse) {
+	public Nurse setNurse(User user, Nurse nurse) {
 		userPersistence.save(user);
 		return nursePersistence.save(nurse);	
 	}
@@ -145,5 +145,5 @@ public class AdminService {
 			tmp.setRoom(bed.getRoom());
 			tmp.setStaysId(bed.getStaysId());
 			return bedPersistence.save(tmp);		
-		} 
+		}
 }

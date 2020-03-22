@@ -7,6 +7,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,18 +46,28 @@ public class AdminController {
         return this.adminService.getAllBlocks();
     }
 
-    @RequestMapping(method = RequestMethod.POST, value="/boss-nurses")
+    /* @RequestMapping(method = RequestMethod.POST, value="/boss-nurses")
     public void addNurse(@RequestBody Nurse nurse){
-        adminService.setnurse(nurse.getUsers(), nurse);
+        adminService.setNurse(nurse.getUsers(), nurse);
+    } */
+
+    @PostMapping
+    public Nurse addNurse(@RequestBody Nurse nurse){
+        return adminService.setNurse(nurse.getUsers(), nurse);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value="/blocks")
+   /*  @RequestMapping(method = RequestMethod.POST, value="/blocks")
     public void addBlock(@RequestBody Block block){
         adminService.setBlock(block);
+    } */
+
+    @PostMapping
+    public Block addBlock(@RequestBody Block block){
+        return adminService.setBlock(block);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/nurses/{nurseId}")
-    public void updateNurse(@RequestBody Nurse nurse, @PathVariable int nurseId){
+    public void updateNurse(@RequestBody Nurse nurse, @PathVariable("nurseId")  int nurseId){
         List<Nurse> nurses = this.adminService.getAllNurses();
         for (int i=0; i < nurses.size();i++){
             if (nurses.get(i).getNurseId() == nurseId){
@@ -65,7 +77,7 @@ public class AdminController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/stateBlock/{block_code}")
-    public void updateStateBlock(@RequestBody Block block, @PathVariable int block_code){
+    public void updateStateBlock(@RequestBody Block block, @PathVariable("block_code") int block_code){
         List<Block> blocks = this.adminService.getAllBlocks();
         for (int i=0; i < blocks.size();i++){
             if (blocks.get(i).getBlockCode() == block_code){

@@ -1,5 +1,7 @@
 package edu.eci.arsw.service;
 
+import java.util.List;
+
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +54,10 @@ public class NurseAssistantService {
 	public Patient getPatient(int id) {
 		return patientPersistence.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
+	}
+
+	public List<Patient> getAllPatient() {
+		return patientPersistence.findAll();
 	}
 	
 	//---------------Oncall-----------------

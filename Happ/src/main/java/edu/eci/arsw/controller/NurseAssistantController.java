@@ -51,8 +51,6 @@ public class NurseAssistantController {
 		return nurseAssistantService.getAllProcedures();
 	}
 
-
-
 	@GetMapping("/state/{idPatient}")
 	public String getStatePatient(@PathVariable ("idPatient") long idPatient){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();

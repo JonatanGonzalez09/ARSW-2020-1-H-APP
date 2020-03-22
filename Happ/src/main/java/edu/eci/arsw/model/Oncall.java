@@ -19,7 +19,7 @@ public class Oncall {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "oncall_id")
-    private long oncallId;	
+    private int oncallId;	
 	
 	@Column(name = "nurse_id")
 	private int nurseId;
@@ -33,11 +33,11 @@ public class Oncall {
 	
 	public Oncall() {}
 
-	public long getOncallId() {
+	public int getOncallId() {
 		return oncallId;
 	}
 
-	public void setOncallId(long oncallId) {
+	public void setOncallId(int oncallId) {
 		this.oncallId = oncallId;
 	}
 

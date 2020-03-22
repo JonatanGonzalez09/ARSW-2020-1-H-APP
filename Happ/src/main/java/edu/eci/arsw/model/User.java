@@ -34,7 +34,7 @@ public class User {
 	              fetch = FetchType.LAZY, optional = false)
 	    private Nurse nurse;
 
-	    private boolean active;
+	    private boolean active = true;
 
 	    private String roles = "";
 	    

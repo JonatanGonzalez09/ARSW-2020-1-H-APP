@@ -17,7 +17,7 @@ public class Procedure {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private int id;
 	
 	@Column(nullable = false)
 	private String name;
@@ -36,11 +36,11 @@ public class Procedure {
 	
 	public Procedure(){}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

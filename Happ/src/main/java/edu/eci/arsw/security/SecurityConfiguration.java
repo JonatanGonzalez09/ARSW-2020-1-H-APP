@@ -31,10 +31,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/index.html").permitAll()
                 .antMatchers("/profile/**").authenticated()
-                .antMatchers("/nurseAssistant/**").hasRole("ASSISTANT")
-                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/assistant-nurse/**").permitAll()
+                .antMatchers("/admin/**").permitAll()
                 .antMatchers("/test/**").authenticated()
-                .antMatchers("/nurse/**").hasAnyRole("MANAGER")
+                .antMatchers("/nurse/**").permitAll()
                 .and()
                 .httpBasic();
     }

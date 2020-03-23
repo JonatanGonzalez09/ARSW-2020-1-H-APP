@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 import edu.eci.arsw.service.NurseAssistantService;
 import edu.eci.arsw.model.Nurse;
@@ -20,7 +19,7 @@ import edu.eci.arsw.model.Procedure;
 import edu.eci.arsw.model.Stay;
 import edu.eci.arsw.model.Undergoes;
 
-@RestController
+@Controller
 @RequestMapping("assistant-nurse")
 public class NurseAssistantController {
 	

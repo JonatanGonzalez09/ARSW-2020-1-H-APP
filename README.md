@@ -1,5 +1,7 @@
 # ARSW-2020-1-H-APP #
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/808778ab71044192946b471d27e6c39f)](https://app.codacy.com/manual/JonatanGonzalez09/ARSW-2020-1-H-APP/dashboard?bid=17170766)
+
 ## Definición de proyecto ##
 
 ### Título : H-APP ###

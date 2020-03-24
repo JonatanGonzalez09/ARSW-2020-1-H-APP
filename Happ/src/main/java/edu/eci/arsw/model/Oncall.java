@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,7 +22,8 @@ public class Oncall {
 	@Column(name = "oncall_id")
     private long oncallId;	
 	
-	@Column(name = "nurse_id")
+	@ManyToOne(targetEntity=Nurse.class, fetch = FetchType.LAZY)
+	@JoinColumn(name = "nurse_Id")
 	private int nurseId;
 	
 	@Column(name = "block_code")

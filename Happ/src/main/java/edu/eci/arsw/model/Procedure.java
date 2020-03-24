@@ -25,7 +25,7 @@ public class Procedure {
 	private String description;
 	
 	@OneToMany
-	@JoinColumn(name = "undergoes_id")
+	@JoinColumn(name = "undergoes")
 	private List<Undergoes> undergoes;
 	
 

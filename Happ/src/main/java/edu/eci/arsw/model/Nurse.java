@@ -39,9 +39,7 @@ public class Nurse implements Serializable {
 	
 	private String position;
 	
-	@OneToMany
-	@JoinColumn(name = "oncall_id")
-	@Column(name = "oncall_id")
+	@OneToMany(mappedBy = "nurseId", targetEntity = Oncall.class, fetch=FetchType.EAGER, cascade=CascadeType.ALL)		
 	private List<Oncall> OncallId;
 	
 	@OneToMany
@@ -104,7 +102,7 @@ public class Nurse implements Serializable {
 	public void setPosition(String position) {
 		this.position = position;
 	}
-
+	
 	public List<Oncall> getOncallId() {
 		return OncallId;
 	}

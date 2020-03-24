@@ -27,6 +27,15 @@ _Construcción de una plataforma web que apoye las tareas/responsabilidades de l
 ### **Casos de Uso** ###
 ![](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/casosDeUso.jpg)
 
+### **Diagrama de Entidad Relación** ###
+![](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/ER.png)
+
+### **Diagrama de Despliegue** ###
+![](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/Diagrama%20de%20despliegue.png)
+
+### **Diagrama de Componentes** ###
+![](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/Diagrama%20de%20componentes.png)
+
 ### **Historias de Usuario** ###
 
 **_Administrador_**:
@@ -67,14 +76,26 @@ _Construcción de una plataforma web que apoye las tareas/responsabilidades de l
 - **COMO** Enfermera Auxiliar **QUIERO** consultar estado de un paciente **PARA PODER** verificar su situacion actual o si tiene procemientos pendientes.
 - **COMO** Enfermera Auxiliar **QUIERO** consultar pacientes asignados **PARA PODER** atender a los pacientes acargo.
 
-### **Entidad Relación** ###
-![](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/entidadRelacion.jpg)
-
 **Link del Drive del proyecto**
 https://drive.google.com/drive/folders/1hvCMZi-28FHQ9eHM8lZRvgDKDoNwJfgX
 
 **Link de la aplicación en Heroku**
 https://happ2020.herokuapp.com/
+
+### **Indicaciones de Uso** ###
+
+Existen tres usuarios por defecto
+ - admin 
+ - manager
+ - assistant
+ 
+La contraseña para cada usario es el username + 123 por ejemplo usuario admin contraseña admin123
+
+El administrados solo cumple como su nombre lo dice tareas administrativas y no puede acceder a los pacientes o a las funcionalidades de las enfermeras
+
+Las enfermeras jefes (manager) son las que tienen mas funcionalidades
+
+Las enfermeras asistentes tienen funcionalidades restringidas pero son las que necesitan para realizar su trabajo
 
 Abra los links para observar el diseño de la interfaz gráfica usando el Wireframe **Balsamiq**
 

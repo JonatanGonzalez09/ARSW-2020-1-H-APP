@@ -8,8 +8,6 @@ orbs:
 workflows:
   # Name the workflow "welcome"
   welcome:
-    version: 2
-    build-and-test:
-      # Run the welcome/run job in its own container
-      jobs:
-        - build-and-test
+     # Run the welcome/run job in its own container
+     jobs:
+     - build-and-test

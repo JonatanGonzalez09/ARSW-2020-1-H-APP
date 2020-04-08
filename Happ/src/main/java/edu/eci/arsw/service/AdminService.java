@@ -29,8 +29,8 @@ public class AdminService {
 		return userPersistence.findAll();
 	}
 	
-	public User getUser(String username) {
-		return userPersistence.findByUsername(username);
+	public User getUser(String loginUser) {
+		return userPersistence.findByLoginUser(loginUser);
 	}
 	
 	public List<User> getAllActiveUsers(){
@@ -48,10 +48,10 @@ public class AdminService {
 	
 	public User updateUser(User user) {
 		User tmp = userPersistence.getOne(user.getUserId());
-		tmp.setActive(user.isActive());
+		tmp.setActive(user.getActive());
 		tmp.setEmail(user.getEmail());
 		tmp.setPassword(user.getPassword());
-		tmp.setRoles(user.getRoles());
+		tmp.setRol(user.getRol());
 		return userPersistence.save(tmp);
 	}	
 	
@@ -73,10 +73,9 @@ public class AdminService {
 	public Nurse updateNurse(Nurse nurse) {
 		Nurse tmp = nursePersistence.getOne(nurse.getNurseId());
 		tmp.setName(nurse.getName());
-		tmp.setOncallId(nurse.getOncallId());
+		tmp.setOnCalls(nurse.getOnCalls());
 		tmp.setPosition(nurse.getPosition());
 		tmp.setUndergoes(nurse.getUndergoes());
-		tmp.setRegistered(nurse.isRegistered());
 		return nursePersistence.save(tmp);		
 	}
 	
@@ -97,8 +96,8 @@ public class AdminService {
 	
 	public Block updateBlock(Block block) {
 		Block tmp = blockPersistence.getOne(block.getBlockcode());
-		tmp.setOncallId(block.getOncallId());
-		tmp.setRoomNumber(block.getRoomNumber());
+		tmp.setOnCalls(block.getOnCalls());
+		tmp.setRooms(block.getRooms());
 		return blockPersistence.save(tmp);		
 	} 
 	
@@ -119,9 +118,9 @@ public class AdminService {
 	
 	public Room updateRoom(Room room) {
 		Room tmp = roomPersistence.getOne(room.getRoomnumber());
-		tmp.setRoomType(room.getRoomType());
-		tmp.setBedId(room.getBedId());
-		tmp.setUnavailable(room.isUnavailable());
+		tmp.setRoomtype(room.getRoomtype());
+		tmp.setBeds(room.getBeds());
+		tmp.setUnavailable(room.getUnavailable());
 		return roomPersistence.save(tmp);		
 	} 
 	
@@ -143,7 +142,7 @@ public class AdminService {
 		public Bed updateBed(Bed bed) {
 			Bed tmp = bedPersistence.getOne(bed.getBedId());
 			tmp.setRoom(bed.getRoom());
-			tmp.setStaysId(bed.getStaysId());
+			tmp.setStays(bed.getStays());
 			return bedPersistence.save(tmp);		
 		}
 }

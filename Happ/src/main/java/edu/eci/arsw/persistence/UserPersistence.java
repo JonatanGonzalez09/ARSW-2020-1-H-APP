@@ -8,6 +8,6 @@ import edu.eci.arsw.model.User;
 
 @Repository
 public interface UserPersistence extends JpaRepository<User, Integer> {
-	User findByUsername(String username);
+	User findByLoginUser(String loginUser);
 	List<User> findAllByActive(boolean active);
 }

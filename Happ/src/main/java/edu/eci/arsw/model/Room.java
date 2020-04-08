@@ -1,5 +1,6 @@
 package edu.eci.arsw.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -8,70 +9,92 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="rooms")
-public class Room {
-	
-	@Id
-	private int roomnumber;
-	
-	private String roomType;
-	
-	@Column(name = "block_code")
-	private int blockCode;	
-	
-	private boolean unavailable = false;
-	
-	@OneToMany
-	@JoinColumn(name = "bed_id")
-	private List<Bed> bedId;
-	
-	public Room() {}
+@Table(name="room")
+@NamedQuery(name="Room.findAll", query="SELECT r FROM Room r")
+public class Room implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-	public int getRoomnumber() {
-		return roomnumber;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false)
+	private Integer roomnumber;
+
+	@Column(nullable=false, length=50)
+	private String roomtype;
+
+	@Column(nullable=false)
+	private Boolean unavailable;
+
+	//bi-directional many-to-one association to Bed
+	@OneToMany(mappedBy="room")
+	private List<Bed> beds;
+
+	//bi-directional many-to-one association to Block
+	@ManyToOne
+	@JoinColumn(name="blockcode", nullable=false)
+	private Block block;
+
+	public Room() {
 	}
 
-	public void setRoomnumber(int roomnumber) {
+	public Integer getRoomnumber() {
+		return this.roomnumber;
+	}
+
+	public void setRoomnumber(Integer roomnumber) {
 		this.roomnumber = roomnumber;
 	}
 
-	public String getRoomType() {
-		return roomType;
+	public String getRoomtype() {
+		return this.roomtype;
 	}
 
-	public void setRoomType(String roomType) {
-		this.roomType = roomType;
-	}	
-
-	public int getBlockCode() {
-		return blockCode;
+	public void setRoomtype(String roomtype) {
+		this.roomtype = roomtype;
 	}
 
-	public void setBlockCode(int blockCode) {
-		this.blockCode = blockCode;
+	public Boolean getUnavailable() {
+		return this.unavailable;
 	}
 
-	public boolean isUnavailable() {
-		return unavailable;
-	}
-
-	public void setUnavailable(boolean unavailable) {
+	public void setUnavailable(Boolean unavailable) {
 		this.unavailable = unavailable;
 	}
 
-	public List<Bed> getBedId() {
-		return bedId;
+	public List<Bed> getBeds() {
+		return this.beds;
 	}
 
-	public void setBedId(List<Bed> bedId) {
-		this.bedId = bedId;
+	public void setBeds(List<Bed> beds) {
+		this.beds = beds;
 	}
-	
+
+	public Bed addBed(Bed bed) {
+		getBeds().add(bed);
+		bed.setRoom(this);
+
+		return bed;
+	}
+
+	public Bed removeBed(Bed bed) {
+		getBeds().remove(bed);
+		bed.setRoom(null);
+
+		return bed;
+	}
+
+	public Block getBlock() {
+		return this.block;
+	}
+
+	public void setBlock(Block block) {
+		this.block = block;
+	}
+
 }

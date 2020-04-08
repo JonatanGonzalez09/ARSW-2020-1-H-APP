@@ -45,7 +45,7 @@ public class NurseManagerService {
 	
 	public Bed updateBed(Bed bed) {
 		Bed tmp = bedPersistence.getOne(bed.getBedId());
-		tmp.setStaysId(bed.getStaysId());
+		tmp.setStays(bed.getStays());
 		return bedPersistence.save(tmp);		
 	} 
 	//-----------------Block----------------------
@@ -70,7 +70,7 @@ public class NurseManagerService {
 	
 	public Nurse updateNurse(Nurse nurse) {
 		Nurse tmp = nursePersistence.getOne(nurse.getNurseId());
-		tmp.setOncallId(nurse.getOncallId());
+		tmp.setOnCalls(nurse.getOnCalls());
 		tmp.setUndergoes(nurse.getUndergoes());
 		return nursePersistence.save(tmp);		
 	}
@@ -90,10 +90,10 @@ public class NurseManagerService {
 	
 	public Oncall updateOncall(Oncall oncall) {
 		Oncall tmp = oncallPersistence.getOne((int) oncall.getOncallId());
-		tmp.setBlockCode(oncall.getBlockCode());
-		tmp.setNurseId(oncall.getNurseId());
-		tmp.setOncallsend(oncall.getOncallsend());
-		tmp.setOncallstrart(oncall.getOncallstrart());
+		tmp.setBlock(oncall.getBlock());
+		tmp.setNurse(oncall.getNurse());
+		tmp.setOncallend(oncall.getOncallend());
+		tmp.setOncallstart(oncall.getOncallstart());
 		return oncallPersistence.save(tmp);
 	}
 	//-----------------Patient----------------------
@@ -120,7 +120,7 @@ public class NurseManagerService {
 	}
 	
 	public Procedure updateProcedure(Procedure procedure) {
-		Procedure tmp = procedurePersistence.getOne((int) procedure.getId());
+		Procedure tmp = procedurePersistence.getOne((int) procedure.getProcedureId());
 		tmp.setDescription(procedure.getDescription());
 		tmp.setName(procedure.getName());
 		tmp.setUndergoes(procedure.getUndergoes());
@@ -156,9 +156,9 @@ public class NurseManagerService {
 	
 	public Stay updateStay(Stay stay) {
 		Stay tmp = stayPersistence.getOne(stay.getStayId());
-		tmp.setBedId(stay.getBedId());
+		tmp.setBed(stay.getBed());
 		tmp.setEndTime(stay.getEndTime());
-		tmp.setPatientId(stay.getPatientId());
+		tmp.setPatient(stay.getPatient());
 		tmp.setStartTime(stay.getStartTime());
 		tmp.setUndergoes(stay.getUndergoes());
 		return stayPersistence.save(tmp);
@@ -180,16 +180,15 @@ public class NurseManagerService {
 	public Undergoes updateUndergoes(Undergoes undergoes) {
 		Undergoes tmp = undergoesPersistence.getOne(undergoes.getUndergoesId());
 		tmp.setDate(undergoes.getDate());
-		tmp.setDone(undergoes.isDone());
-		tmp.setNurseId(undergoes.getNurseId());
-		tmp.setProcedure(undergoes.getUndergoesId());
-		tmp.setDoneDate(undergoes.getDoneDate());
+		tmp.setDone(undergoes.getDone());
+		tmp.setNurse(undergoes.getNurse());
+		tmp.setProcedure(undergoes.getProcedure());
 		tmp.setStay(undergoes.getStay());		
 		return undergoesPersistence.save(tmp);				
 	}
 	//-----------------User----------------------
 	public User getUser(String username) {
-		return userPersistence.findByUsername(username);
+		return userPersistence.findByLoginUser(username);
 	}
 	
 	public User updateUser(User user) {

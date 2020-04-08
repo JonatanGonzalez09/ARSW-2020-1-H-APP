@@ -1,5 +1,6 @@
 package edu.eci.arsw.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
@@ -8,64 +9,87 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="patients")
-public class Patient {
+@Table(name="patient")
+@NamedQuery(name="Patient.findAll", query="SELECT p FROM Patient p")
+public class Patient implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long patient_id;
-	
-	@Column(nullable = false, name = "gov_id")
-    private String govId;
-    
-	@Column(name = "gov_type")
-    private String govType = "CC";    
-    
-    @Column(nullable = false)
-    private Date birthdate;
-    
-    @Column(nullable = false)
-    private String rh;
-    
-    @Column(nullable = false)
-    private String address;
-    
-    @Column(nullable = false)
-    private int phone;
-    
-    @Column(nullable = false)
-    private String gender;
-    
-    @OneToMany
-    @JoinColumn(name = "patient_id")
-    private List<Stay> stays;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="patient_id", unique=true, nullable=false)
+	private Integer patientId;
 
-	public Patient(String gov_id, String gov_type, Date birthdate, String rh, String address, int phone,String gender) {
-		this.govId = gov_id;
-		this.govType = gov_type;
-		this.birthdate = birthdate;
-		this.rh = rh;
+	@Column(nullable=false, length=50)
+	private String address;
+
+	
+	@Column(nullable=false)
+	private Date birthdate;
+
+	@Column(nullable=false, length=15)
+	private String gender;
+
+	@Column(name="gov_id", nullable=false, length=20)
+	private String govId;
+
+	@Column(name="gov_type", nullable=false, length=4)
+	private String govType;
+
+	@Column(nullable=false, length=50)
+	private String name;
+
+	@Column(nullable=false)
+	private Integer phone;
+
+	@Column(nullable=false, length=4)
+	private String rh;
+
+	//bi-directional many-to-one association to Stay
+	@OneToMany(mappedBy="patient")
+	private List<Stay> stays;
+
+	public Patient() {
+	}
+
+	public Integer getPatientId() {
+		return this.patientId;
+	}
+
+	public void setPatientId(Integer patientId) {
+		this.patientId = patientId;
+	}
+
+	public String getAddress() {
+		return this.address;
+	}
+
+	public void setAddress(String address) {
 		this.address = address;
-		this.phone = phone;
+	}
+
+	public Date getBirthdate() {
+		return this.birthdate;
+	}
+
+	public void setBirthdate(Date birthdate) {
+		this.birthdate = birthdate;
+	}
+
+	public String getGender() {
+		return this.gender;
+	}
+
+	public void setGender(String gender) {
 		this.gender = gender;
-	}
-	
-	public Patient() {}
-
-	public long getPatient_id() {
-		return patient_id;
-	}
-
-	public void setPatient_id(long patient_id) {
-		this.patient_id = patient_id;
 	}
 
 	public String getGovId() {
-		return govId;
+		return this.govId;
 	}
 
 	public void setGovId(String govId) {
@@ -73,59 +97,57 @@ public class Patient {
 	}
 
 	public String getGovType() {
-		return govType;
+		return this.govType;
 	}
 
 	public void setGovType(String govType) {
 		this.govType = govType;
 	}
 
-	public Date getBirthdate() {
-		return birthdate;
+	public String getName() {
+		return this.name;
 	}
 
-	public void setBirthdate(Date birthdate) {
-		this.birthdate = birthdate;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getPhone() {
+		return this.phone;
+	}
+
+	public void setPhone(Integer phone) {
+		this.phone = phone;
 	}
 
 	public String getRh() {
-		return rh;
+		return this.rh;
 	}
 
 	public void setRh(String rh) {
 		this.rh = rh;
 	}
 
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public int getPhone() {
-		return phone;
-	}
-
-	public void setPhone(int phone) {
-		this.phone = phone;
-	}
-
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
 	public List<Stay> getStays() {
-		return stays;
+		return this.stays;
 	}
 
 	public void setStays(List<Stay> stays) {
 		this.stays = stays;
-	}	
-	
+	}
+
+	public Stay addStay(Stay stay) {
+		getStays().add(stay);
+		stay.setPatient(this);
+
+		return stay;
+	}
+
+	public Stay removeStay(Stay stay) {
+		getStays().remove(stay);
+		stay.setPatient(null);
+
+		return stay;
+	}
+
 }

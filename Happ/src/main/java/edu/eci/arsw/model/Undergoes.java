@@ -1,5 +1,6 @@
 package edu.eci.arsw.model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -7,87 +8,94 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+
 
 
 @Entity
 @Table(name="undergoes")
-public class Undergoes {
-	
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "undergoes_id")
-    private int undergoesId;
-	
-	private int procedure;
-	
-	private int stay;
-	
-	private Timestamp date;
-	
-	@Column(name = "nurse_id")
-	private int nurseId;
-	
-	private boolean done;
-	
-	private Timestamp doneDate;
-	
-	public Undergoes() {}
+@NamedQuery(name="Undergoes.findAll", query="SELECT u FROM Undergoes u")
+public class Undergoes implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-	public int getUndergoesId() {
-		return undergoesId;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="undergoes_id", unique=true, nullable=false)
+	private Integer undergoesId;
+
+	@Column(nullable=false)
+	private Timestamp date;
+
+	//bi-directional many-to-one association to Nurse
+	@ManyToOne
+	@JoinColumn(name="nurse_id", nullable=false)
+	private Nurse nurse;
+
+	//bi-directional many-to-one association to Procedure
+	@ManyToOne
+	@JoinColumn(name="procedure_id", nullable=false)
+	private Procedure procedure;
+
+	//bi-directional many-to-one association to Stay
+	@ManyToOne
+	@JoinColumn(name="stay_id", nullable=false)
+	private Stay stay;
+	
+	@Column(nullable=true)
+	private Timestamp Done = null;
+
+	public Undergoes() {
 	}
 
-	public void setUndergoesId(int undergoesId) {
+	public Integer getUndergoesId() {
+		return this.undergoesId;
+	}
+
+	public void setUndergoesId(Integer undergoesId) {
 		this.undergoesId = undergoesId;
 	}
 
-	public int getProcedure() {
-		return procedure;
-	}
-
-	public void setProcedure(int procedure) {
-		this.procedure = procedure;
-	}
-
-	public int getStay() {
-		return stay;
-	}
-
-	public void setStay(int stay) {
-		this.stay = stay;
-	}	
-
-	public boolean isDone() {
-		return done;
-	}
-
-	public void setDone(boolean done) {
-		this.done = done;
-	}
-
 	public Timestamp getDate() {
-		return date;
+		return this.date;
 	}
 
 	public void setDate(Timestamp date) {
 		this.date = date;
+	}
+
+	public Nurse getNurse() {
+		return this.nurse;
+	}
+
+	public void setNurse(Nurse nurse) {
+		this.nurse = nurse;
+	}
+
+	public Procedure getProcedure() {
+		return this.procedure;
+	}
+
+	public void setProcedure(Procedure procedure) {
+		this.procedure = procedure;
 	}	
-
-	public Timestamp getDoneDate() {
-		return doneDate;
+	
+	public Timestamp getDone() {
+		return Done;
 	}
 
-	public void setDoneDate(Timestamp doneDate) {
-		this.doneDate = doneDate;
+	public void setDone(Timestamp done) {
+		Done = done;
 	}
 
-	public int getNurseId() {
-		return nurseId;
+	public Stay getStay() {
+		return this.stay;
 	}
 
-	public void setNurseId(int nurseId) {
-		this.nurseId = nurseId;
+	public void setStay(Stay stay) {
+		this.stay = stay;
 	}
 
 }

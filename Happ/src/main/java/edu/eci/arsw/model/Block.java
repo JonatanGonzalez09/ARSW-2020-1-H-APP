@@ -1,5 +1,6 @@
 package edu.eci.arsw.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -7,64 +8,93 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="blocks")
-public class Block {
-	
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "block_code")
-	private int blockcode;
-	
-	private int blockfloor;	
-	
-	@OneToMany
-	@JoinColumn(name = "oncall_id")
-	private List<Oncall> oncallId;
-	
-	@OneToMany
-	@JoinColumn(name = "roomnumber")
-	private List<Room> roomNumber;
-		
-	public Block() {}
+@Table(name="block")
+@NamedQuery(name="Block.findAll", query="SELECT b FROM Block b")
+public class Block implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-	public int getBlockCode(){
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false)
+	private Integer blockcode;
+
+	@Column(nullable=false)
+	private Integer blockfloor;
+
+	//bi-directional many-to-one association to OnCall
+	@OneToMany(mappedBy="block")
+	private List<Oncall> onCalls;
+
+	//bi-directional many-to-one association to Room
+	@OneToMany(mappedBy="block")
+	private List<Room> rooms;
+
+	public Block() {
+	}
+
+	public Integer getBlockcode() {
 		return this.blockcode;
 	}
 
-	public int getBlockfloor() {
-		return blockfloor;
-	}
-
-	public void setBlockfloor(int blockfloor) {
-		this.blockfloor = blockfloor;
-	}
-
-	public int getBlockcode() {
-		return blockcode;
-	}
-
-	public void setBlockcode(int blockcode) {
+	public void setBlockcode(Integer blockcode) {
 		this.blockcode = blockcode;
 	}
 
-	public List<Oncall> getOncallId() {
-		return oncallId;
+	public Integer getBlockfloor() {
+		return this.blockfloor;
 	}
 
-	public void setOncallId(List<Oncall> oncallId) {
-		this.oncallId = oncallId;
+	public void setBlockfloor(Integer blockfloor) {
+		this.blockfloor = blockfloor;
 	}
 
-	public List<Room> getRoomNumber() {
-		return roomNumber;
+	public List<Oncall> getOnCalls() {
+		return this.onCalls;
 	}
 
-	public void setRoomNumber(List<Room> roomNumber) {
-		this.roomNumber = roomNumber;
+	public void setOnCalls(List<Oncall> onCalls) {
+		this.onCalls = onCalls;
 	}
+
+	public Oncall addOnCall(Oncall onCall) {
+		getOnCalls().add(onCall);
+		onCall.setBlock(this);
+
+		return onCall;
+	}
+
+	public Oncall removeOnCall(Oncall onCall) {
+		getOnCalls().remove(onCall);
+		onCall.setBlock(null);
+
+		return onCall;
+	}
+
+	public List<Room> getRooms() {
+		return this.rooms;
+	}
+
+	public void setRooms(List<Room> rooms) {
+		this.rooms = rooms;
+	}
+
+	public Room addRoom(Room room) {
+		getRooms().add(room);
+		room.setBlock(this);
+
+		return room;
+	}
+
+	public Room removeRoom(Room room) {
+		getRooms().remove(room);
+		room.setBlock(null);
+
+		return room;
+	}
+
 }

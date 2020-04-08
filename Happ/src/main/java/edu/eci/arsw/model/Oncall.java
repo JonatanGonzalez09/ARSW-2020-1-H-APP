@@ -1,78 +1,85 @@
 package edu.eci.arsw.model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="on_calls")
-public class Oncall {
-	
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "oncall_id")
-    private long oncallId;	
-	
-	@ManyToOne(targetEntity=Nurse.class, fetch = FetchType.LAZY)
-	@JoinColumn(name = "nurse_Id")
-	private int nurseId;
-	
-	@Column(name = "block_code")
-	private int blockCode;	
-	
-	private Timestamp oncallstrart; 
-	
-	private Timestamp oncallsend; 
-	
-	public Oncall() {}
+@Table(name="on_call")
+@NamedQuery(name="Oncall.findAll", query="SELECT o FROM Oncall o")
+public class Oncall implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-	public long getOncallId() {
-		return oncallId;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="oncall_id", unique=true, nullable=false)
+	private Integer oncallId;
+
+	private Timestamp oncallend;
+
+	@Column(nullable=false)
+	private Timestamp oncallstart;
+
+	//bi-directional many-to-one association to Block
+	@ManyToOne
+	@JoinColumn(name="blockcode", nullable=false)
+	private Block block;
+
+	//bi-directional many-to-one association to Nurse
+	@ManyToOne
+	@JoinColumn(name="nurse_id", nullable=false)
+	private Nurse nurse;
+
+	public Oncall() {
 	}
 
-	public void setOncallId(long oncallId) {
+	public Integer getOncallId() {
+		return this.oncallId;
+	}
+
+	public void setOncallId(Integer oncallId) {
 		this.oncallId = oncallId;
 	}
 
-	public int getNurseId() {
-		return nurseId;
+	public Timestamp getOncallend() {
+		return this.oncallend;
 	}
 
-	public void setNurseId(int nurseId) {
-		this.nurseId = nurseId;
-	}	
-
-	public int getBlockCode() {
-		return blockCode;
+	public void setOncallend(Timestamp oncallend) {
+		this.oncallend = oncallend;
 	}
 
-	public void setBlockCode(int blockCode) {
-		this.blockCode = blockCode;
+	public Timestamp getOncallstart() {
+		return this.oncallstart;
 	}
 
-	public Timestamp getOncallstrart() {
-		return oncallstrart;
+	public void setOncallstart(Timestamp oncallstart) {
+		this.oncallstart = oncallstart;
 	}
 
-	public void setOncallstrart(Timestamp oncallstrart) {
-		this.oncallstrart = oncallstrart;
+	public Block getBlock() {
+		return this.block;
 	}
 
-	public Timestamp getOncallsend() {
-		return oncallsend;
+	public void setBlock(Block block) {
+		this.block = block;
 	}
 
-	public void setOncallsend(Timestamp oncallsend) {
-		this.oncallsend = oncallsend;
+	public Nurse getNurse() {
+		return this.nurse;
 	}
-	
+
+	public void setNurse(Nurse nurse) {
+		this.nurse = nurse;
+	}
+
 }

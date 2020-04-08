@@ -1,6 +1,7 @@
 package edu.eci.arsw.model;
 
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -10,82 +11,106 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Entity
-@Table(name="stays")
-public class Stay {
-	
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "stay_id")
-	private int stayId;
-	
-	@Column(name = "patient_id")
-	private int patientId;
-	
-	@Column(name = "bed_id")
-	private int bedId;
-	
-	@Column(name = "start_time")
-	private Timestamp startTime;
-	
-	@Column(name = "end_time")
-	private Timestamp endTime;	
-	
-	@OneToMany
-	@JoinColumn(name = "undergoes_id")
-	private List<Undergoes> undergoes;
-	
-	public Stay() {}
 
-	public int getStayId() {
-		return stayId;
+@Entity
+@Table(name="stay")
+@NamedQuery(name="Stay.findAll", query="SELECT s FROM Stay s")
+public class Stay implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="stay_id", unique=true, nullable=false)
+	private Integer stayId;
+
+	@Column(name="end_time")
+	private Timestamp endTime;
+
+	@Column(name="start_time", nullable=false)
+	private Timestamp startTime;
+
+	//bi-directional many-to-one association to Bed
+	@ManyToOne
+	@JoinColumn(name="bed_id", nullable=false)
+	private Bed bed;
+
+	//bi-directional many-to-one association to Patient
+	@ManyToOne
+	@JoinColumn(name="patient_id", nullable=false)
+	private Patient patient;
+
+	//bi-directional many-to-one association to Undergoe
+	@OneToMany(mappedBy="stay")
+	private List<Undergoes> undergoes;
+
+	public Stay() {
 	}
 
-	public void setStayId(int stayId) {
+	public Integer getStayId() {
+		return this.stayId;
+	}
+
+	public void setStayId(Integer stayId) {
 		this.stayId = stayId;
 	}
 
-	public int getPatientId() {
-		return patientId;
-	}
-
-	public void setPatientId(int patientId) {
-		this.patientId = patientId;
-	}
-
-	public int getBedId() {
-		return bedId;
-	}
-
-	public void setBedId(int bedId) {
-		this.bedId = bedId;
-	}
-
-	public Timestamp getStartTime() {
-		return startTime;
-	}
-
-	public void setStartTime(Timestamp startTime) {
-		this.startTime = startTime;
-	}
-
 	public Timestamp getEndTime() {
-		return endTime;
+		return this.endTime;
 	}
 
 	public void setEndTime(Timestamp endTime) {
 		this.endTime = endTime;
 	}
 
+	public Timestamp getStartTime() {
+		return this.startTime;
+	}
+
+	public void setStartTime(Timestamp startTime) {
+		this.startTime = startTime;
+	}
+
+	public Bed getBed() {
+		return this.bed;
+	}
+
+	public void setBed(Bed bed) {
+		this.bed = bed;
+	}
+
+	public Patient getPatient() {
+		return this.patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+
 	public List<Undergoes> getUndergoes() {
-		return undergoes;
+		return this.undergoes;
 	}
 
 	public void setUndergoes(List<Undergoes> undergoes) {
 		this.undergoes = undergoes;
+	}
+
+	public Undergoes addUndergoe(Undergoes undergoes) {
+		getUndergoes().add(undergoes);
+		undergoes.setStay(this);
+
+		return undergoes;
+	}
+
+	public Undergoes removeUndergoe(Undergoes undergoes) {
+		getUndergoes().remove(undergoes);
+		undergoes.setStay(null);
+
+		return undergoes;
 	}
 
 }

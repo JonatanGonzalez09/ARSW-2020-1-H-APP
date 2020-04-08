@@ -33,7 +33,7 @@ public class NurseAssistantController {
 	public List<Patient> getAllPatiens(){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String tmp = auth.getName();
-		Nurse nurse = nurseAssistantService.getUser(tmp).getNurse();
+		Nurse nurse = nurseAssistantService.getUser(tmp).getNurses().get(0);
 		List<Patient> allPatient = nurseAssistantService.getAllPatient();
 		List<Patient> patientByidNurse = new ArrayList<Patient>();
 		List<Undergoes> undergoes = nurse.getUndergoes();
@@ -57,16 +57,16 @@ public class NurseAssistantController {
 	public String getStatePatient(@PathVariable ("idPatient") long idPatient){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String tmp = auth.getName();
-		Nurse nurse = nurseAssistantService.getUser(tmp).getNurse();
+		Nurse nurse = nurseAssistantService.getUser(tmp).getNurses().get(0);
 		Patient patient = nurseAssistantService.getPatient((int)idPatient);
 		List<Undergoes> undergoes = nurse.getUndergoes();
-		int idProcedure = 0;
+		Procedure idProcedure = null;
 		for (int i=0; i < undergoes.size(); i++ ){
-			if (patient.getPatient_id() == idPatient){
+			if (patient.getPatientId() == idPatient){
 				idProcedure = undergoes.get(i).getProcedure();
 			}
 		}
-		Procedure procedure = nurseAssistantService.getProcedure(idProcedure);
+		Procedure procedure = nurseAssistantService.getProcedure(idProcedure.getProcedureId());
 		return procedure.getDescription();
 	}
 
@@ -74,7 +74,7 @@ public class NurseAssistantController {
 	public void updateProcedures(@RequestBody Procedure procedure, @PathVariable("idProcedure") int idProcedure){
         List<Procedure> procedures = nurseAssistantService.getAllProcedures();
         for (int i=0; i < procedures.size();i++){
-            if (procedures.get(i).getId() == idProcedure){
+            if (procedures.get(i).getProcedureId() == idProcedure){
                 this.nurseAssistantService.updateProcedure(procedure);
             }
         }

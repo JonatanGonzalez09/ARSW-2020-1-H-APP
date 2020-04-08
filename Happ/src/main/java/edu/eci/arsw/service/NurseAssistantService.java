@@ -28,7 +28,7 @@ public class NurseAssistantService {
 	//----------------User-----------------------
 	
 	public User getUser(String username) {
-		return userPersistence.findByUsername(username);
+		return userPersistence.findByLoginUser(username);
 	}
 	
 	public User updateUser(User user) {
@@ -65,19 +65,18 @@ public class NurseAssistantService {
 	//---------------Oncall-----------------
 	
 	public Oncall getOncall(int id) {
-		return oncallPersistence.findByNurseId(id);
+		return oncallPersistence.findByNurse(id);
 	}	
 	
 	//---------------undergoes-----------
 	
 	public Undergoes getUndergoes(int id) {
-		return undergoesPersistence.findByNurseId(id);
+		return undergoesPersistence.findByNurse(id);
 	}
 	
 	public Undergoes updateUndergoes(Undergoes undergoes) {
 		Undergoes tmp = undergoesPersistence.getOne(undergoes.getUndergoesId());
-		tmp.setDone(undergoes.isDone());
-		tmp.setDoneDate(undergoes.getDoneDate());
+		tmp.setDone(undergoes.getDone());
 		return undergoesPersistence.save(tmp);		
 	}
 
@@ -92,9 +91,8 @@ public class NurseAssistantService {
 	}
 
 	public Procedure updateProcedure(Procedure procedure) {
-		Procedure tmp = procedurePersistence.getOne((int) procedure.getId());
+		Procedure tmp = procedurePersistence.getOne((int) procedure.getProcedureId());
 		tmp.setDescription(procedure.getDescription());
-		tmp.setId(procedure.getId());
 		tmp.setName(procedure.getName());
 		tmp.setUndergoes(procedure.getUndergoes());
 		return procedurePersistence.save(tmp);

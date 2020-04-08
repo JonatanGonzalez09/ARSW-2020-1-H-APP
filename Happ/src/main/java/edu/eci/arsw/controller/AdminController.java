@@ -82,7 +82,7 @@ public class AdminController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/new-boss-nurses")
     public void addNurse(@RequestBody Nurse nurse) {
-        adminService.setNurse(nurse.getUsers(), nurse);
+        adminService.setNurse(nurse.getUser(), nurse);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/new-block")
@@ -104,7 +104,7 @@ public class AdminController {
     public void updateStateBlock(@RequestBody Block block, @PathVariable("block_code") int block_code) {
         List < Block > blocks = this.adminService.getAllBlocks();
         for (int i = 0; i < blocks.size(); i++) {
-            if (blocks.get(i).getBlockCode() == block_code) {
+            if (blocks.get(i).getBlockcode() == block_code) {
                 this.adminService.updateBlock(block);
             }
         }

@@ -10,7 +10,8 @@ import java.util.Collection;
 import java.util.List;
 
 public class UserPrincipal implements UserDetails {
-    private User user;
+	private static final long serialVersionUID = 1L;
+	private User user;
 
     public UserPrincipal(User user){
         this.user = user;
@@ -30,7 +31,7 @@ public class UserPrincipal implements UserDetails {
     }
 
     public String getRole() {
-        return this.user.getRoles();
+        return this.user.getRol();
     }
 
     @Override
@@ -40,7 +41,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.user.getUsername();
+        return this.user.getLoginUser();
     }
 
     @Override
@@ -60,6 +61,6 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return this.user.isActive();
+        return this.user.getActive();
     }
 }

@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 
 @Entity
@@ -30,16 +32,19 @@ public class Undergoes implements Serializable {
 	private Timestamp date;
 
 	//bi-directional many-to-one association to Nurse
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="nurse_id", nullable=false)
 	private Nurse nurse;
 
 	//bi-directional many-to-one association to Procedure
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="procedure_id", nullable=false)
 	private Procedure procedure;
 
 	//bi-directional many-to-one association to Stay
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="stay_id", nullable=false)
 	private Stay stay;

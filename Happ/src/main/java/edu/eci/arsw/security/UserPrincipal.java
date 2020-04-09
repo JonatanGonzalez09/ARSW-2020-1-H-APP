@@ -22,7 +22,7 @@ public class UserPrincipal implements UserDetails {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
         // Extract list of roles (ROLE_name)
-        this.user.getRoleList().forEach(r -> {
+        this.user.securityRoleList().forEach(r -> {
             GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + r);
             authorities.add(authority);
         });

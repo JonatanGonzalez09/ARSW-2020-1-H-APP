@@ -1,15 +1,23 @@
 package edu.eci.arsw.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import edu.eci.arsw.model.*;
-import edu.eci.arsw.persistence.*;
+import edu.eci.arsw.model.Bed;
+import edu.eci.arsw.model.Block;
+import edu.eci.arsw.model.Nurse;
+import edu.eci.arsw.model.Room;
+import edu.eci.arsw.model.User;
+import edu.eci.arsw.persistence.BedPersistence;
+import edu.eci.arsw.persistence.BlockPersistence;
+import edu.eci.arsw.persistence.NursePersistence;
+import edu.eci.arsw.persistence.RoomPersistence;
+import edu.eci.arsw.persistence.UserPersistence;
 
 @Service
 public class AdminService {
@@ -24,9 +32,11 @@ public class AdminService {
 	private RoomPersistence roomPersistence;
 	@Autowired
 	private BedPersistence bedPersistence;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	//---------------Users-------------
-	public List<User> getAllUsers(){
-		return userPersistence.findAll();
+	public List<Object[]> getAllUsers(){
+		return userPersistence.findAllBasicInfo();
 	}
 	
 	public User getUser(String loginUser) {
@@ -41,9 +51,9 @@ public class AdminService {
 		return userPersistence.findAllByActive(false);
 	}
 	
-	public User setUser(User user, Nurse nurse) {
-		nursePersistence.save(nurse);
-		return userPersistence.save(user);
+	public User setUser(User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		return userPersistence.save(user);		
 	}
 	
 	public User updateUser(User user) {
@@ -57,7 +67,11 @@ public class AdminService {
 	
 	//---------------Nurses-------------
 	public List<Nurse> getAllNurses(){
-		return nursePersistence.findAll();
+		return nursePersistence.findAllBasicInfo();
+	}
+	
+	public List<Nurse> getAllNursesByPosition(String position){
+		return nursePersistence.findByPosition(position);
 	}
 	
 	public Nurse getNurse(int id) {
@@ -65,9 +79,8 @@ public class AdminService {
 				.orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
 	}
 	
-	public Nurse setNurse(User user, Nurse nurse) {
-		userPersistence.save(user);
-		return nursePersistence.save(nurse);	
+	public Nurse setNurse(Nurse nurse) {
+		return nursePersistence.save(nurse);
 	}
 	
 	public Nurse updateNurse(Nurse nurse) {
@@ -82,7 +95,7 @@ public class AdminService {
 	//-----------Block-----------------
 	
 	public List<Block> getAllBlocks(){
-		return blockPersistence.findAll();
+		return blockPersistence.findAllBasicInfo();
 	}
 	
 	public Block getBlock(int id) {
@@ -104,7 +117,7 @@ public class AdminService {
 	//----------Room--------------
 	
 	public List<Room> getAllRooms(){
-		return roomPersistence.findAll();
+		return roomPersistence.findAllBasicInfo();
 	}
 	
 	public Room getRoom(int id) {

@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="on_call")
 @NamedQuery(name="Oncall.findAll", query="SELECT o FROM Oncall o")
@@ -30,11 +32,13 @@ public class Oncall implements Serializable {
 	private Timestamp oncallstart;
 
 	//bi-directional many-to-one association to Block
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="blockcode", nullable=false)
 	private Block block;
 
 	//bi-directional many-to-one association to Nurse
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="nurse_id", nullable=false)
 	private Nurse nurse;

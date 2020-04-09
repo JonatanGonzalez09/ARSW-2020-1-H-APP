@@ -14,6 +14,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name="bed")
@@ -27,6 +29,7 @@ public class Bed implements Serializable {
 	private Integer bedId;
 
 	//bi-directional many-to-one association to Room
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="roomnumber", nullable=false)
 	private Room room;

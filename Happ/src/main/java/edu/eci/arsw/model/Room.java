@@ -14,6 +14,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="room")
 @NamedQuery(name="Room.findAll", query="SELECT r FROM Room r")
@@ -36,6 +38,7 @@ public class Room implements Serializable {
 	private List<Bed> beds;
 
 	//bi-directional many-to-one association to Block
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="blockcode", nullable=false)
 	private Block block;

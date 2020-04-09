@@ -1,22 +1,19 @@
 package edu.eci.arsw.controller;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.eci.arsw.model.Bed;
 import edu.eci.arsw.model.Block;
 import edu.eci.arsw.model.Nurse;
+import edu.eci.arsw.model.Room;
 import edu.eci.arsw.model.User;
 import edu.eci.arsw.service.AdminService;
 
@@ -29,84 +26,62 @@ public class AdminController {
     private AdminService adminService;
 
     @GetMapping("users")
-    public List < User > users() {
-        return this.adminService.getAllUsers();
+    public List<Object[]> users() {
+        return adminService.getAllUsers();
     }
-
-    @GetMapping("boss-nurses")
-    public List < Nurse > bossNurses() {
+    
+    @GetMapping("nurses")
+    public List < Nurse > nurses() {
         return this.adminService.getAllNurses();
     }
 
-    @GetMapping("assistant-nurses")
+    @GetMapping("nurses/admin")
+    public List <Nurse> bossNurses() {
+        return this.adminService.getAllNursesByPosition("mngr");
+    }
+
+    @GetMapping("nurses/assistant")
     public List < Nurse > assistantNurses() {
-        return this.adminService.getAllNurses();
+        return this.adminService.getAllNursesByPosition("asst");
     }
 
     @GetMapping("blocks")
-    public List < Block > blocks() {
+    public List <Block> blocks() {
         return this.adminService.getAllBlocks();
     }
-
-    @RequestMapping(method = RequestMethod.POST, value = "/nurse-and-user")
-    public ArrayList<String> addNurseAndUser(@RequestBody String contenidoJson) {
-        String valorName = "";
-        String valorRate = "";
-        ArrayList<String> lista= new ArrayList<String>();
-        try {
-            //    contenidoJson es tu string conteniendo el json.
-            JSONObject mainObject = new JSONObject(contenidoJson);
-            //Obtenemos los objetos dentro del objeto principal.
-            Iterator < String > keys = mainObject.keys();
-
-            while (keys.hasNext()) {
-                // obtiene el nombre del objeto.
-                String key = keys.next();
-                lista.add("Parser"+"objeto : " + key);
-                JSONObject jsonObject = mainObject.getJSONObject(key);
-
-                //obtiene valores dentro del objeto.
-                valorName = jsonObject.getString("name");
-                valorRate = jsonObject.getString("rate");
-
-                //Imprimimos los valores.
-                lista.add("Parser: "+ valorName);
-                lista.add("Parser"+ valorRate);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-            System.out.println("Parser"+ e.getMessage());
-        }
-        return lista;
+    
+    @GetMapping("rooms")
+    public List<Room> rooms() {
+        return this.adminService.getAllRooms();
+    }   
+    
+    @RequestMapping(method = RequestMethod.POST, value = "user")
+    public User addUser(@RequestBody User user) {
+        return adminService.setUser(user);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/new-boss-nurses")
-    public void addNurse(@RequestBody Nurse nurse) {
-        adminService.setNurse(nurse.getUser(), nurse);
+    @RequestMapping(method = RequestMethod.POST, value = "nurse")
+    public Nurse addNurse(@RequestBody Nurse nurse) {
+        return adminService.setNurse(nurse);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/new-block")
+    @RequestMapping(method = RequestMethod.POST, value = "block")
     public void addBlock(@RequestBody Block block) {
         adminService.setBlock(block);
     }
-
-    @RequestMapping(method = RequestMethod.PUT, value = "/nurses/{nurseId}")
-    public void updateNurse(@RequestBody Nurse nurse, @PathVariable("nurseId") int nurseId) {
-        List < Nurse > nurses = this.adminService.getAllNurses();
-        for (int i = 0; i < nurses.size(); i++) {
-            if (nurses.get(i).getNurseId() == nurseId) {
-                this.adminService.updateNurse(nurse);
-            }
-        }
+    
+    @RequestMapping(method = RequestMethod.POST, value = "beds")
+    public void addBed(@RequestBody Bed bed) {
+        adminService.setBed(bed);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/stateBlock/{block_code}")
-    public void updateStateBlock(@RequestBody Block block, @PathVariable("block_code") int block_code) {
-        List < Block > blocks = this.adminService.getAllBlocks();
-        for (int i = 0; i < blocks.size(); i++) {
-            if (blocks.get(i).getBlockcode() == block_code) {
-                this.adminService.updateBlock(block);
-            }
-        }
+    @RequestMapping(method = RequestMethod.PUT, value = "nurses")
+    public Nurse updateNurse(@RequestBody Nurse nurse) {
+    	return adminService.updateNurse(nurse);    	
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "blocks")
+    public Block updateStateBlock(@RequestBody Block block) {
+    	return adminService.updateBlock(block);
     }
 }

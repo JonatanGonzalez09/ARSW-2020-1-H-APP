@@ -16,6 +16,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name="stay")
@@ -35,11 +37,13 @@ public class Stay implements Serializable {
 	private Timestamp startTime;
 
 	//bi-directional many-to-one association to Bed
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="bed_id", nullable=false)
 	private Bed bed;
 
 	//bi-directional many-to-one association to Patient
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="patient_id", nullable=false)
 	private Patient patient;

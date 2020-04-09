@@ -64,7 +64,7 @@ public class User implements Serializable {
 		this.rol = rol;
 	}
 
-	public List<String> getRoleList(){
+	public List<String> securityRoleList(){
         if(this.rol.length() > 0){
             return Arrays.asList(this.rol.split(","));
         }

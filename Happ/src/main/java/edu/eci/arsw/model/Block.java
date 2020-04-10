@@ -2,7 +2,9 @@ package edu.eci.arsw.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="block")
@@ -27,11 +31,13 @@ public class Block implements Serializable {
 	private Integer blockfloor;
 
 	//bi-directional many-to-one association to OnCall
-	@OneToMany(mappedBy="block")
+	@JsonManagedReference(value="block-oncall")
+	@OneToMany(cascade=CascadeType.ALL,mappedBy="block")
 	private List<Oncall> onCalls;
 
 	//bi-directional many-to-one association to Room
-	@OneToMany(mappedBy="block")
+	@JsonManagedReference(value="block-room")
+	@OneToMany(cascade=CascadeType.ALL,mappedBy="block")
 	private List<Room> rooms;
 
 	public Block() {
@@ -80,7 +86,7 @@ public class Block implements Serializable {
 	}
 
 	public void setRooms(List<Room> rooms) {
-		this.rooms = rooms;
+		this.rooms =rooms;
 	}
 
 	public Room addRoom(Room room) {

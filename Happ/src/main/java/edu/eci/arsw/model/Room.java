@@ -2,9 +2,12 @@ package edu.eci.arsw.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,7 +17,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="room")
@@ -34,12 +39,13 @@ public class Room implements Serializable {
 	private Boolean unavailable;
 
 	//bi-directional many-to-one association to Bed
-	@OneToMany(mappedBy="room")
+	@JsonManagedReference(value="room-bed")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="room")
 	private List<Bed> beds;
 
-	//bi-directional many-to-one association to Block
-	@JsonIgnore
-	@ManyToOne
+	//bi-directional many-to-one association to Block	
+	@JsonBackReference(value="block-room")
+	@ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="blockcode", nullable=false)
 	private Block block;
 

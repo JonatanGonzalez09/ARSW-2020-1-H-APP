@@ -1,6 +1,8 @@
 package edu.eci.arsw.service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -35,22 +37,34 @@ public class AdminService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	//---------------Users-------------
-	public List<Object[]> getAllUsers(){
-		return userPersistence.findAllBasicInfo();
+	
+	//----------------find----------
+	public List<User> getAllUsers(){
+		return userPersistence.findAll();
 	}
 	
 	public User getUser(String loginUser) {
 		return userPersistence.findByLoginUser(loginUser);
 	}
 	
-	public List<User> getAllActiveUsers(){
-		return userPersistence.findAllByActive(true);
+	public User getUserByEmail(String email) {
+		return userPersistence.findByEmail(email);
 	}
 	
-	public List<User> getAllInActiveUsers(){
-		return userPersistence.findAllByActive(false);
+	public List<User> getAllUserStatus(boolean bo){
+		return userPersistence.findAllByActive(bo);
 	}
 	
+	public User getUserByGovId(String type, String code) {
+		return userPersistence.findByGovIdAndGovType(code, type);
+	}
+	
+	public User getUserById(int id) {
+		return userPersistence.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
+	}
+	
+	//--------other-------------
 	public User setUser(User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		return userPersistence.save(user);		
@@ -67,7 +81,7 @@ public class AdminService {
 	
 	//---------------Nurses-------------
 	public List<Nurse> getAllNurses(){
-		return nursePersistence.findAllBasicInfo();
+		return nursePersistence.findAll();
 	}
 	
 	public List<Nurse> getAllNursesByPosition(String position){
@@ -79,6 +93,10 @@ public class AdminService {
 				.orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
 	}
 	
+	public List<Nurse> getAllByName(String name){
+		return nursePersistence.findByName(name);
+	}
+	
 	public Nurse setNurse(Nurse nurse) {
 		return nursePersistence.save(nurse);
 	}
@@ -86,16 +104,18 @@ public class AdminService {
 	public Nurse updateNurse(Nurse nurse) {
 		Nurse tmp = nursePersistence.getOne(nurse.getNurseId());
 		tmp.setName(nurse.getName());
-		tmp.setOnCalls(nurse.getOnCalls());
-		tmp.setPosition(nurse.getPosition());
-		tmp.setUndergoes(nurse.getUndergoes());
+		tmp.setPosition(nurse.getPosition());		
 		return nursePersistence.save(tmp);		
 	}
 	
 	//-----------Block-----------------
 	
 	public List<Block> getAllBlocks(){
-		return blockPersistence.findAllBasicInfo();
+		return blockPersistence.findAll();
+	}
+	
+	public List<Block> findByFloor(int floor){
+		return blockPersistence.findByBlockfloor(floor);
 	}
 	
 	public Block getBlock(int id) {
@@ -107,17 +127,14 @@ public class AdminService {
 		return blockPersistence.save(block);
 	}
 	
-	public Block updateBlock(Block block) {
-		Block tmp = blockPersistence.getOne(block.getBlockcode());
-		tmp.setOnCalls(block.getOnCalls());
-		tmp.setRooms(block.getRooms());
-		return blockPersistence.save(tmp);		
+	public Block updateBlock(Block block) {				
+		return blockPersistence.save(block);		
 	} 
 	
 	//----------Room--------------
 	
 	public List<Room> getAllRooms(){
-		return roomPersistence.findAllBasicInfo();
+		return roomPersistence.findAll();
 	}
 	
 	public Room getRoom(int id) {
@@ -125,37 +142,42 @@ public class AdminService {
 				.orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
 	}
 	
+	public List<Room> getRoomByAvailable(boolean b){
+		return roomPersistence.findByUnavailable(b);
+	}
+	
+	public List<Room> getRoomByType(String type){
+		return roomPersistence.findByRoomtype(type);
+	}
+	
 	public Room setRoom(Room room) {
 		return roomPersistence.save(room);
 	}
 	
 	public Room updateRoom(Room room) {
-		Room tmp = roomPersistence.getOne(room.getRoomnumber());
-		tmp.setRoomtype(room.getRoomtype());
-		tmp.setBeds(room.getBeds());
-		tmp.setUnavailable(room.getUnavailable());
-		return roomPersistence.save(tmp);		
+		Room tmp = roomPersistence.findByRoomnumber(room.getRoomnumber());
+		room.setBlock(tmp.getBlock());
+		return roomPersistence.save(room);		
 	} 
 	
 	//----------Bed--------------
 	
-		public List<Bed> getAllBed(){
-			return bedPersistence.findAll();
-		}
-		
-		public Bed getBed(int id) {
-			return bedPersistence.findById(id)
-					.orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
-		}
-		
-		public Bed setBed(Bed bed) {
-			return bedPersistence.save(bed);
-		}
-		
-		public Bed updateBed(Bed bed) {
-			Bed tmp = bedPersistence.getOne(bed.getBedId());
-			tmp.setRoom(bed.getRoom());
-			tmp.setStays(bed.getStays());
-			return bedPersistence.save(tmp);		
-		}
+	public List<Bed> getAllBed(){
+		return bedPersistence.findAll();
+	}
+	
+	public Bed getBed(int id) {
+		return bedPersistence.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
+	}
+	
+	public Bed setBed(Bed bed) {
+		return bedPersistence.save(bed);
+	}
+	
+	public Bed updateBed(Bed bed) {
+		Optional<Bed> tmp = bedPersistence.findById(bed.getBedId());
+		bed.setRoom(tmp.get().getRoom());
+		return bedPersistence.save(bed);		
+	}
 }

@@ -5,14 +5,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
@@ -47,7 +49,8 @@ public class User implements Serializable {
 	private String rol;
 
 	//bi-directional many-to-one association to Nurse
-	@OneToMany(mappedBy="user")
+	@OneToMany(cascade=CascadeType.ALL,mappedBy="user")
+	@JsonManagedReference(value="user-nurse")
 	private List<Nurse> nurses;
 
 	

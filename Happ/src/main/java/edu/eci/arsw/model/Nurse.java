@@ -3,8 +3,10 @@ package edu.eci.arsw.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,7 +16,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="nurse")
@@ -37,16 +41,19 @@ public class Nurse implements Serializable {
 	private String rh;
 
 	//bi-directional many-to-one association to User
-	@ManyToOne
+	@JsonBackReference(value="user-nurse")
+	@ManyToOne(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinColumn(name="usuarios_user_id", nullable=false)
 	private User user;
 
 	//bi-directional many-to-one association to OnCall
-	@OneToMany(mappedBy="nurse")
+	@JsonManagedReference(value="nurse-onCalls")
+	@OneToMany(cascade=CascadeType.ALL,mappedBy="nurse")
 	private List<Oncall> onCalls;
 
-	//bi-directional many-to-one association to Undergoe
-	@OneToMany(mappedBy="nurse")
+	//bi-directional many-to-one association to Undergoes
+	@OneToMany(cascade=CascadeType.ALL,mappedBy="nurse")
+	@JsonManagedReference(value="nurse-undergoes")
 	private List<Undergoes> undergoes;
 
 	public Nurse() {

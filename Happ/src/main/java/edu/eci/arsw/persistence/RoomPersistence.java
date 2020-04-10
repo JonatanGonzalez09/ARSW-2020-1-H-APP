@@ -12,4 +12,8 @@ public interface RoomPersistence extends JpaRepository<Room, Integer> {
 	@Query(value = "select r.roomnumber, r.unavailable, r.roomtype, "
 			+ "(select count(bed.bed_id) from bed where r.roomnumber =bed.roomnumber) as bed_number from room r ", nativeQuery = true)
 	List findAllBasicInfo();
+	
+	Room findByRoomnumber(int id);
+	List<Room> findByUnavailable(boolean n);
+	List<Room> findByRoomtype(String type);
 }

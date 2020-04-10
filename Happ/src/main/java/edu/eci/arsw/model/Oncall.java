@@ -3,8 +3,10 @@ package edu.eci.arsw.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -32,14 +35,14 @@ public class Oncall implements Serializable {
 	private Timestamp oncallstart;
 
 	//bi-directional many-to-one association to Block
-	@JsonIgnore
-	@ManyToOne
+	@JsonBackReference(value="block-oncall")
+	@ManyToOne(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinColumn(name="blockcode", nullable=false)
 	private Block block;
 
-	//bi-directional many-to-one association to Nurse
-	@JsonIgnore
-	@ManyToOne
+	//bi-directional many-to-one association to Nurse	
+	@JsonBackReference(value="nurse-onCalls")
+	@ManyToOne(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinColumn(name="nurse_id", nullable=false)
 	private Nurse nurse;
 

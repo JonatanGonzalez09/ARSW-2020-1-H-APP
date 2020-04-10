@@ -11,5 +11,6 @@ public interface BlockPersistence extends JpaRepository<Block, Integer> {
 	
 	@Query(value = "select b.blockcode, b.blockfloor, room.roomnumber, room.roomtype, room.unavailable, bed.bed_id from block b join room on b.blockcode = room.blockcode join bed on room.roomnumber = bed.roomnumber \r\n", nativeQuery = true)
 	List findAllBasicInfo();
-
+	Block findByBlockcode(int id);
+	List<Block> findByBlockfloor(int floor);
 }

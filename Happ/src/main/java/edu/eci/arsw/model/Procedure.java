@@ -3,6 +3,7 @@ package edu.eci.arsw.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="procedure")
@@ -30,7 +33,8 @@ public class Procedure implements Serializable {
 	private String name;
 
 	//bi-directional many-to-one association to Undergoes
-	@OneToMany(mappedBy="procedure")
+	@JsonManagedReference(value="procedure-undergoes")
+	@OneToMany(cascade=CascadeType.ALL,mappedBy="procedure")
 	private List<Undergoes> undergoes;
 
 	public Procedure() {

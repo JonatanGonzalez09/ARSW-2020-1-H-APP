@@ -9,11 +9,10 @@ import edu.eci.arsw.model.Nurse;
 
 public interface NursePersistence extends JpaRepository<Nurse, Integer> {
 	
-	@Query(value= "select nurse_id,\"name\" , \"position\" , rh, u.email , u.gov_id , u.gov_type from nurse n join usuarios u on u.user_id = n.usuarios_user_id \r\n" + 
-			"where \"position\" = :position", nativeQuery = true)
-	List findByPosition(String position);
 	
-	
+	List<Nurse> findByPosition(String position);	
 	@Query(value= "select nurse_id,\"name\" , \"position\" , rh, u.email , u.gov_id , u.gov_type from nurse n join usuarios u on u.user_id = n.usuarios_user_id \r\n", nativeQuery = true)
 	List findAllBasicInfo();
+	List<Nurse> findByName(String name);
+	
 }

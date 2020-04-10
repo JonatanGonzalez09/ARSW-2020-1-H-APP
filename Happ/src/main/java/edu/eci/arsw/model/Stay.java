@@ -5,8 +5,10 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,7 +18,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
@@ -37,19 +41,20 @@ public class Stay implements Serializable {
 	private Timestamp startTime;
 
 	//bi-directional many-to-one association to Bed
-	@JsonIgnore
-	@ManyToOne
+	@JsonBackReference(value="bed-stay")
+	@ManyToOne(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinColumn(name="bed_id", nullable=false)
 	private Bed bed;
 
 	//bi-directional many-to-one association to Patient
-	@JsonIgnore
-	@ManyToOne
+	@JsonBackReference(value="patient-stay")
+	@ManyToOne(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinColumn(name="patient_id", nullable=false)
 	private Patient patient;
 
 	//bi-directional many-to-one association to Undergoe
-	@OneToMany(mappedBy="stay")
+	@OneToMany(cascade=CascadeType.ALL,mappedBy="stay")
+	@JsonManagedReference(value="stay-undergoes")
 	private List<Undergoes> undergoes;
 
 	public Stay() {

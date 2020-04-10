@@ -14,4 +14,6 @@ public interface UserPersistence extends JpaRepository<User, Integer> {
 	List<Object[]> findAllBasicInfo();
 	User findByLoginUser(String loginUser);
 	List<User> findAllByActive(boolean active);
+	User findByEmail(String email);
+	User findByGovIdAndGovType(String govId, String govType);
 }

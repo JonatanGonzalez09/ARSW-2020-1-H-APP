@@ -81,7 +81,6 @@ public class AdminController {
   	    }
     }
     
-    
   //------------------- GET Nurse-----------------
     @GetMapping("nurses")
     public ResponseEntity<?> nurses() {
@@ -229,8 +228,13 @@ public class AdminController {
     
     //------------------- POST-----------------
     @RequestMapping(method = RequestMethod.POST, value = "users")
-    public User addUser(@RequestBody User user) {
-        return adminService.setUser(user);
+    public ResponseEntity<?> addUser(@RequestBody User user) {
+    	try {
+  	      return new ResponseEntity<>(adminService.setUser(user), HttpStatus.OK);
+  	    } catch (Exception ex) {
+  	      Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+  	      return new ResponseEntity<>("Error creationg User", HttpStatus.INTERNAL_SERVER_ERROR);
+  	    }
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "nurses")

@@ -7,5 +7,5 @@ import edu.eci.arsw.model.Bed;
 
 @Repository
 public interface BedPersistence extends JpaRepository<Bed, Integer> {
-	
+    Bed findByBedId(int bedId);
 }

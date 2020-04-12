@@ -78,8 +78,8 @@ public class NurseAssistantService {
 		return patientPersistence.findByGovTypeAndGovId(type, code);
 	}
 
-	public List<Patient> getAllPatient() {
-		return patientPersistence.findAll();
+	public List<Patient> getAllPatient(Nurse nurse) {
+		return patientPersistence.getAllPatientsFromNurse(nurse.getNurseId());
 	}
 
 	// ---------------Oncall-----------------
@@ -128,10 +128,16 @@ public class NurseAssistantService {
 		return undergoesPersistence.findByStay(stay);
 	}
 
+	public List<Undergoes> getUndergoesToday(Nurse nurse) {
+		return undergoesPersistence.getUndergoesToday(nurse.getNurseId());
+	}
+
 	public Undergoes updateUndergoes(Undergoes undergoes) {
-		Undergoes tmp = undergoesPersistence.getOne(undergoes.getUndergoesId());
-		tmp.setDone(undergoes.getDone());
-		return undergoesPersistence.save(tmp);
+		Undergoes undergoesTmp = undergoesPersistence.findById(undergoes.getUndergoesId())
+								.orElseThrow(() -> new EntityNotFoundException(String.valueOf(undergoes.getUndergoesId())));
+		undergoesTmp.setDone(undergoes.getDone());
+		undergoesTmp.setDate(undergoes.getDate());
+		return undergoesPersistence.save(undergoesTmp);
 	}
 
 	// -----------------Procedures-------------

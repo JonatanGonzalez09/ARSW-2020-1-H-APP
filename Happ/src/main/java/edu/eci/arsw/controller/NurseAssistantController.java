@@ -291,7 +291,7 @@ public class NurseAssistantController {
 			return new ResponseEntity<>(nurseAssistantService.getStaysByBedsId(bedTmp), HttpStatus.OK);
 		}catch (Exception ex) { 
 			Logger.getLogger(NurseAssistantController.class.getName()).log(Level.SEVERE, null, ex);
-			return new ResponseEntity<>("No stay exist with this bedId.", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("No stay exist with this bed Id.", HttpStatus.NOT_FOUND);
 		}
 	}
 
@@ -302,7 +302,7 @@ public class NurseAssistantController {
 			return new ResponseEntity<>(nurseAssistantService.updateUndergoes(undergoes), HttpStatus.OK);
 		}catch (Exception ex) { 
 			Logger.getLogger(NurseAssistantController.class.getName()).log(Level.SEVERE, null, ex);
-			return new ResponseEntity<>("Error updating this undergoes. ", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("Error updating this undergoes. ", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
     }
 	

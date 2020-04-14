@@ -1,5 +1,6 @@
 package edu.eci.arsw.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
@@ -172,6 +173,38 @@ public class NurseManagerService {
 		return undergoesPersistence.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
 	}
+
+	public List<Undergoes> getUndergoesToday(Nurse nurse) {
+		return undergoesPersistence.getUndergoesToday(nurse.getNurseId());
+	}
+
+	public List<Undergoes> getUndergoesAfterToday(Date date) {
+		return undergoesPersistence.findAllByDateAfter(date);
+	}
+
+	public List<Undergoes> getUndergoesBeforeToday(Date date) {
+		return undergoesPersistence.findAllByDateBefore(date);
+	}
+
+	public List<Undergoes> getUndergoesByNurseId(Nurse nurse) {
+		return undergoesPersistence.findByNurse(nurse);
+	}
+
+	public List<Undergoes> getUndergoesByProcedureId(Procedure procedure) {
+		return undergoesPersistence.findByProcedure(procedure);
+	}
+
+	public List<Undergoes> getUndergoesByStayId(Stay stay) {
+		return undergoesPersistence.findByStay(stay);
+	}
+
+	public List<Undergoes> getUndergoesDone() {
+		return undergoesPersistence.getUndergoesDone();
+	}
+
+	public List<Undergoes> getUndergoesNotDone() {
+		return undergoesPersistence.getUndergoesNotDone();
+	}
 	
 	public Undergoes setUndergoes(Undergoes undergoes) {
 		return undergoesPersistence.save(undergoes);
@@ -187,6 +220,14 @@ public class NurseManagerService {
 		return undergoesPersistence.save(tmp);				
 	}
 	//-----------------User----------------------
+	public List<User> getAllUsers(){
+		return userPersistence.findAll();
+	}
+
+	public List<User> getAllActivesUser(boolean is){
+		return userPersistence.findAllByActive(is);
+	}
+
 	public User getUser(String username) {
 		return userPersistence.findByLoginUser(username);
 	}
@@ -197,5 +238,17 @@ public class NurseManagerService {
 		tmp.setPassword(user.getPassword());
 		return userPersistence.save(tmp);
 	}
-	
+
+	public User getUserById(int userId) {
+		return userPersistence.findById(userId)
+		.orElseThrow(() -> new EntityNotFoundException(String.valueOf(userId)));
+	}
+
+	public User getUserByGovId(String type, String code) {
+		return userPersistence.findByGovIdAndGovType(code, type);
+	}
+
+	public Object getUserByEmail(String email) {
+		return userPersistence.findByEmail(email);
+	}
 }

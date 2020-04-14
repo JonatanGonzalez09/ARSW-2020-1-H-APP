@@ -41,7 +41,7 @@ public class ManagementController {
 			return new ResponseEntity<>(nurseManagerService.getAllUsers(), HttpStatus.OK);
 		}catch (Exception ex) { 
 			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
-			return new ResponseEntity<>("No exist users", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("No exist users", HttpStatus.INTERNAL_SERVER_ERROR);
 		} 
     }
 

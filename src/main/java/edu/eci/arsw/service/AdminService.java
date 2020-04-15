@@ -1,5 +1,6 @@
 package edu.eci.arsw.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -97,6 +98,9 @@ public class AdminService {
 	}
 	
 	public Nurse setNurse(Nurse nurse) {
+		List<Nurse> tmp = new ArrayList<Nurse>();
+		tmp.add(nurse);
+		nurse.getUser().setNurses(tmp);
 		return nursePersistence.save(nurse);
 	}
 	

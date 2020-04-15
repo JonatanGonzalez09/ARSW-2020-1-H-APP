@@ -59,6 +59,12 @@ public class AdminService {
 		return userPersistence.findByGovIdAndGovType(code, type);
 	}
 	
+	public User getUserByNurse(int id) {
+		Nurse tmp= nursePersistence.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
+		return tmp.getUser();
+	}
+	
 	public User getUserById(int id) {
 		return userPersistence.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));

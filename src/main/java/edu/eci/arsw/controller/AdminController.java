@@ -81,6 +81,17 @@ public class AdminController {
   	    }
     }
     
+    @GetMapping("users/nurse/{id}")
+    public ResponseEntity<?>  userNurse(@PathVariable ("id") int id) {
+    	try {
+  	      return new ResponseEntity<>(adminService.getUserByNurse(id), HttpStatus.OK);
+  	    } catch (Exception ex) {
+  	      Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+  	      return new ResponseEntity<>("Not nurse exist with", HttpStatus.NOT_FOUND);
+  	    }
+    }
+    
+    
   //------------------- GET Nurse-----------------
     @GetMapping("nurses")
     public ResponseEntity<?> nurses() {

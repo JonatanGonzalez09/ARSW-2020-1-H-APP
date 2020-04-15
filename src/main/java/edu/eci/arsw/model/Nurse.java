@@ -42,7 +42,7 @@ public class Nurse implements Serializable {
 
 	//bi-directional many-to-one association to User
 	@JsonBackReference(value="user-nurse")
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="usuarios_user_id", nullable=false)
 	private User user;
 

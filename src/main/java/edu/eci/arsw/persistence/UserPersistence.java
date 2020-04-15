@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import edu.eci.arsw.model.Nurse;
 import edu.eci.arsw.model.User;
 
 @Repository
@@ -16,4 +18,5 @@ public interface UserPersistence extends JpaRepository<User, Integer> {
 	List<User> findAllByActive(boolean active);
 	User findByEmail(String email);
 	User findByGovIdAndGovType(String govId, String govType);
+	User findByNurses(Nurse nurse);
 }

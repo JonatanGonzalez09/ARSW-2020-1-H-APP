@@ -105,5 +105,4 @@ public class Undergoes implements Serializable {
 	public void setStay(Stay stay) {
 		this.stay = stay;
 	}
-
 }

@@ -12,12 +12,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.eci.arsw.model.Nurse;
 import edu.eci.arsw.model.Procedure;
 import edu.eci.arsw.model.Stay;
+import edu.eci.arsw.model.Undergoes;
 import edu.eci.arsw.service.NurseManagerService;
 
 @RestController
@@ -197,4 +200,81 @@ public class ManagementController {
 			return new ResponseEntity<>("No exist undergoes for this id of stay", HttpStatus.NOT_FOUND);
 		}
 	}
+	
+	//----------------OnCalls-----------------------
+	@GetMapping("oncalls")
+	public ResponseEntity<?> getAllOnCalls(){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getAllOncalls(), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No exist oncalls", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	//----------------Procedures-----------------------
+	@GetMapping("procedures")
+	public ResponseEntity<?> getAllProcedures(){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getProcedures(), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No exist oncalls", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@GetMapping("procedure/{procedureId}")
+	public ResponseEntity<?> getProcedureById(@PathVariable("procedureId") int procedureId){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getProcedure(procedureId), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No exist oncalls", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	//---------------- PUT Procedures-----------------------
+	@RequestMapping(method = RequestMethod.PUT, value = "procedures")
+	public ResponseEntity<?> updateUsers(@RequestBody Procedure procedure){
+		try {
+			return new ResponseEntity<>(nurseManagerService.updateProcedure(procedure), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(NurseAssistantController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("Error updating this procedure. ", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	//---------------- POST Procedures-----------------------
+	@RequestMapping(method = RequestMethod.POST, value = "procedures")
+    public ResponseEntity<?> addUser(@RequestBody Procedure procedure) {
+    	try {
+  	      return new ResponseEntity<>(nurseManagerService.setProcedure(procedure), HttpStatus.OK);
+  	    } catch (Exception ex) {
+  	      Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+  	      return new ResponseEntity<>("Error creationg User", HttpStatus.INTERNAL_SERVER_ERROR);
+  	    }
+    }
+	
+	//----------------PUT Undergoes-----------------------
+	@RequestMapping(method = RequestMethod.PUT, value = "undergoes")
+	public ResponseEntity<?> updateUsers(@RequestBody Undergoes undergoes){
+		try {
+			return new ResponseEntity<>(nurseManagerService.updateUndergoes(undergoes), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(NurseAssistantController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("Error updating this undergoes. ", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	//----------------POST Undergoes-----------------------
+	@RequestMapping(method = RequestMethod.POST, value = "undergoes")
+    public ResponseEntity<?> addUser(@RequestBody Undergoes undergoes) {
+    	try {
+  	      return new ResponseEntity<>(nurseManagerService.setUndergoes(undergoes), HttpStatus.OK);
+  	    } catch (Exception ex) {
+  	      Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+  	      return new ResponseEntity<>("Error creationg User", HttpStatus.INTERNAL_SERVER_ERROR);
+  	    }
+    }
+
 }

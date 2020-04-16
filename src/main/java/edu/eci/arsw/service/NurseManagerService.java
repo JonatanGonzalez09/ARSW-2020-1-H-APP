@@ -1,6 +1,7 @@
 package edu.eci.arsw.service;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
@@ -111,9 +112,9 @@ public class NurseManagerService {
 		return procedurePersistence.findAll();
 	}
 	
-	public Procedure getProcedure(int id) {
-		return procedurePersistence.findById(id)
-				.orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
+	public Procedure getProcedure(int idProcedure) {
+		return procedurePersistence.findById(idProcedure)
+				.orElseThrow(() -> new EntityNotFoundException(String.valueOf(idProcedure)));
 	}
 	
 	public Procedure setProcedure(Procedure procedure) {
@@ -121,12 +122,13 @@ public class NurseManagerService {
 	}
 	
 	public Procedure updateProcedure(Procedure procedure) {
-		Procedure tmp = procedurePersistence.getOne((int) procedure.getProcedureId());
-		tmp.setDescription(procedure.getDescription());
-		tmp.setName(procedure.getName());
-		tmp.setUndergoes(procedure.getUndergoes());
-		return procedurePersistence.save(tmp);
-	}	 	 	
+		Procedure procedureTmp = procedurePersistence.findById(procedure.getProcedureId())
+								.orElseThrow(() -> new EntityNotFoundException(String.valueOf(procedure.getProcedureId())));
+		procedureTmp.setDescription(procedure.getDescription());
+		procedureTmp.setName(procedure.getName());
+		return procedurePersistence.save(procedureTmp);
+	}
+
 	//-----------------Room----------------------
 	public List<Room> getRooms(){
 		return roomPersistence.findAll();
@@ -211,14 +213,16 @@ public class NurseManagerService {
 	}
 	
 	public Undergoes updateUndergoes(Undergoes undergoes) {
-		Undergoes tmp = undergoesPersistence.getOne(undergoes.getUndergoesId());
-		tmp.setDate(undergoes.getDate());
-		tmp.setDone(undergoes.getDone());
-		tmp.setNurse(undergoes.getNurse());
-		tmp.setProcedure(undergoes.getProcedure());
-		tmp.setStay(undergoes.getStay());		
-		return undergoesPersistence.save(tmp);				
+		Undergoes undergoesTmp = undergoesPersistence.findById(undergoes.getUndergoesId())
+								.orElseThrow(() -> new EntityNotFoundException(String.valueOf(undergoes.getUndergoesId())));
+		undergoesTmp.setDone(undergoes.getDone());
+		undergoesTmp.setDate(undergoes.getDate());
+		undergoesTmp.setNurse(undergoes.getNurse());
+		undergoesTmp.setProcedure(undergoes.getProcedure());
+		undergoesTmp.setStay(undergoes.getStay());		
+		return undergoesPersistence.save(undergoesTmp);				
 	}
+
 	//-----------------User----------------------
 	public List<User> getAllUsers(){
 		return userPersistence.findAll();

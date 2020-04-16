@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -jar target/Happ-0.0.1-SNAPSHOT.jar -Dspring.datasource.url=jdbc:postgresql://ec2-3-234-169-147.compute-1.amazonaws.com:5432/du9cn7hjagit0
+web: java -Dserver.port=$PORT -jar target/ARSW-2020-1-H-APP-0.0.1-SNAPSHOT.jar -Dspring.datasource.url=jdbc:postgresql://ec2-3-234-169-147.compute-1.amazonaws.com:5432/du9cn7hjagit0

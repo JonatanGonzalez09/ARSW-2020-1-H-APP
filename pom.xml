@@ -9,9 +9,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>edu.eci.arsw</groupId>
-	<artifactId>Happ</artifactId>
+	<artifactId>ARSW-2020-1-H-APP</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Happ</name>
+	<name>ARSW-2020-1-H-APP</name>
 	<description>Final project for Software Arquitecture</description>
 
 	<properties>

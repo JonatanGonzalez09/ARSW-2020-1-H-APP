@@ -89,6 +89,14 @@ public class NurseManagerService {
 	public Oncall setOncall(Oncall oncall) {
 		return oncallPersistence.save(oncall);
 	}
+
+	public List<Oncall> getOnCallsAfterToday(Date date) {
+		return oncallPersistence.findAllByOncallstartAfter(date);
+	}
+
+	public List<Oncall> getOnCallsBeforeToday(Date date) {
+		return oncallPersistence.findAllByOncallstartBefore(date);
+	}
 	
 	public Oncall updateOncall(Oncall oncall) {
 		Oncall tmp = oncallPersistence.getOne((int) oncall.getOncallId());

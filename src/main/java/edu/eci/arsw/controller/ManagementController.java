@@ -212,6 +212,36 @@ public class ManagementController {
 		}
 	}
 
+	@GetMapping("oncalls/{onCallId}")
+	public ResponseEntity<?> getOncall(@PathVariable("onCallId") int onCallId){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getOncall(onCallId), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No this oncall exist", HttpStatus.NOT_FOUND);
+		} 
+	}
+
+	@GetMapping("oncalls/schedeule/after/{date}")
+	public ResponseEntity<?> getOnCallsAfterToday(@PathVariable("date") Date date){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getOnCallsAfterToday(date), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No oncalls with this date exist", HttpStatus.NOT_FOUND);
+		} 
+	}
+
+	@GetMapping("oncalls/schedeule/before/{date}")
+	public ResponseEntity<?> getOnCallsBeforeToday(@PathVariable("date") Date date){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getOnCallsBeforeToday(date), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No oncalls with this date exist", HttpStatus.NOT_FOUND);
+		}
+	}
+
 	//----------------Procedures-----------------------
 	@GetMapping("procedures")
 	public ResponseEntity<?> getAllProcedures(){
@@ -239,7 +269,7 @@ public class ManagementController {
 		try {
 			return new ResponseEntity<>(nurseManagerService.updateProcedure(procedure), HttpStatus.OK);
 		}catch (Exception ex) { 
-			Logger.getLogger(NurseAssistantController.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
 			return new ResponseEntity<>("Error updating this procedure. ", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -250,7 +280,7 @@ public class ManagementController {
     	try {
   	      return new ResponseEntity<>(nurseManagerService.setProcedure(procedure), HttpStatus.OK);
   	    } catch (Exception ex) {
-  	      Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+  	      Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
   	      return new ResponseEntity<>("Error creationg User", HttpStatus.INTERNAL_SERVER_ERROR);
   	    }
     }
@@ -261,7 +291,7 @@ public class ManagementController {
 		try {
 			return new ResponseEntity<>(nurseManagerService.updateUndergoes(undergoes), HttpStatus.OK);
 		}catch (Exception ex) { 
-			Logger.getLogger(NurseAssistantController.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
 			return new ResponseEntity<>("Error updating this undergoes. ", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -272,7 +302,7 @@ public class ManagementController {
     	try {
   	      return new ResponseEntity<>(nurseManagerService.setUndergoes(undergoes), HttpStatus.OK);
   	    } catch (Exception ex) {
-  	      Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+  	      Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
   	      return new ResponseEntity<>("Error creationg User", HttpStatus.INTERNAL_SERVER_ERROR);
   	    }
     }

@@ -44,11 +44,20 @@ public class NurseManagerService {
 		return bedPersistence.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
 	}
+
+	public List<Bed> getBedsAvailables() {
+		return bedPersistence.getBedAviables();
+	}
+
+	public List<Bed> getBedsUnavailables() {
+		return bedPersistence.getBedUnavailable();
+	}
 	
 	public Bed updateBed(Bed bed) {
-		Bed tmp = bedPersistence.getOne(bed.getBedId());
-		tmp.setStays(bed.getStays());
-		return bedPersistence.save(tmp);		
+		Bed tmpBed = bedPersistence.findById(bed.getBedId())
+			.orElseThrow(() -> new EntityNotFoundException(String.valueOf(bed.getBedId())));
+		tmpBed.setStays(bed.getStays());
+		return bedPersistence.save(tmpBed);		
 	} 
 	//-----------------Block----------------------
 	
@@ -71,11 +80,13 @@ public class NurseManagerService {
 	}
 	
 	public Nurse updateNurse(Nurse nurse) {
-		Nurse tmp = nursePersistence.getOne(nurse.getNurseId());
-		tmp.setOnCalls(nurse.getOnCalls());
-		tmp.setUndergoes(nurse.getUndergoes());
-		return nursePersistence.save(tmp);		
+		Nurse tmpNurse = nursePersistence.findById(nurse.getNurseId())
+			.orElseThrow(() -> new EntityNotFoundException(String.valueOf(nurse.getNurseId())));
+		tmpNurse.setOnCalls(nurse.getOnCalls());
+		tmpNurse.setUndergoes(nurse.getUndergoes());
+		return nursePersistence.save(tmpNurse);		
 	}
+
 	//-----------------Oncall----------------------
 	public List<Oncall> getAllOncalls(){
 		return oncallPersistence.findAll();
@@ -84,10 +95,6 @@ public class NurseManagerService {
 	public Oncall getOncall(int id) {
 		return oncallPersistence.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
-	}
-	
-	public Oncall setOncall(Oncall oncall) {
-		return oncallPersistence.save(oncall);
 	}
 
 	public List<Oncall> getOnCallsAfterToday(Date date) {
@@ -98,14 +105,26 @@ public class NurseManagerService {
 		return oncallPersistence.findAllByOncallstartBefore(date);
 	}
 	
-	public Oncall updateOncall(Oncall oncall) {
-		Oncall tmp = oncallPersistence.getOne((int) oncall.getOncallId());
-		tmp.setBlock(oncall.getBlock());
-		tmp.setNurse(oncall.getNurse());
-		tmp.setOncallend(oncall.getOncallend());
-		tmp.setOncallstart(oncall.getOncallstart());
-		return oncallPersistence.save(tmp);
+	public List<Oncall> getOnCallsByBlockId(Block block) {
+		return oncallPersistence.findByBlock(block);
 	}
+
+	public List<Oncall> getOnCallsByNurseId(Nurse nurse) {
+		return oncallPersistence.findByNurse(nurse);
+	}
+
+	public Oncall setOncall(Oncall oncall) {
+		return oncallPersistence.save(oncall);
+	}
+
+	public Oncall updateOncall(Oncall oncall) {
+		Oncall tmpOncall = oncallPersistence.findById(oncall.getOncallId())
+			.orElseThrow(() -> new EntityNotFoundException(String.valueOf(oncall.getOncallId())));
+		tmpOncall.setOncallend(oncall.getOncallend());
+		tmpOncall.setOncallstart(oncall.getOncallstart());
+		return oncallPersistence.save(tmpOncall);
+	}
+
 	//-----------------Patient----------------------
 	public List<Patient> getPatients(){
 		return patienPersistence.findAll();
@@ -114,7 +133,16 @@ public class NurseManagerService {
 	public Patient getPatient(int id) {
 		return patienPersistence.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
-	}		
+	}
+
+	public Patient getPatientByGovId(String type, String patientId) {
+		return patienPersistence.findByGovTypeAndGovId(type, patientId);
+	}
+
+	public Object getPatientsByNurseId(Nurse nurse) {
+		return patienPersistence.getAllPatientsFromNurse(nurse.getNurseId());
+	}
+		
 	//-----------------Procedure----------------------
 	public List<Procedure> getProcedures(){
 		return procedurePersistence.findAll();
@@ -123,6 +151,14 @@ public class NurseManagerService {
 	public Procedure getProcedure(int idProcedure) {
 		return procedurePersistence.findById(idProcedure)
 				.orElseThrow(() -> new EntityNotFoundException(String.valueOf(idProcedure)));
+	}
+
+	public String getDescriptionProcedure(int idProcedure) {
+		return procedurePersistence.getDescriptionByProcedureId(idProcedure);
+	}
+
+	public String getNameProcedure(int idProcedure) {
+		return procedurePersistence.getNameByProcedureId(idProcedure);
 	}
 	
 	public Procedure setProcedure(Procedure procedure) {
@@ -160,20 +196,37 @@ public class NurseManagerService {
 		return stayPersistence.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));	
 	}
+
+	public List<Stay> getStayEnd() {
+		return stayPersistence.getStaysEnd();
+	}
+
+	public List<Stay> getStayNotEnd() {
+		return stayPersistence.getStaysNotEnd();
+	}
+
+	public List<Stay> getStaysBypatientId(Patient patient) {
+		return stayPersistence.findByPatient(patient);
+	}
+
+	public List<Stay> getStaysByBedId(Bed bed) {
+		return stayPersistence.findByBed(bed);
+	}
 	
 	public Stay setStay(Stay stay) {
 		return stayPersistence.save(stay);
 	}
 	
 	public Stay updateStay(Stay stay) {
-		Stay tmp = stayPersistence.getOne(stay.getStayId());
-		tmp.setBed(stay.getBed());
-		tmp.setEndTime(stay.getEndTime());
-		tmp.setPatient(stay.getPatient());
-		tmp.setStartTime(stay.getStartTime());
-		tmp.setUndergoes(stay.getUndergoes());
-		return stayPersistence.save(tmp);
+		Stay tmpStay = stayPersistence.findById(stay.getStayId())
+		.orElseThrow(() -> new EntityNotFoundException(String.valueOf(stay.getStayId())));
+		tmpStay.setEndTime(stay.getEndTime());
+		tmpStay.setStartTime(stay.getStartTime());
+		tmpStay.setBed(stay.getBed());
+		tmpStay.setPatient(stay.getPatient());
+		return stayPersistence.save(tmpStay);
 	}
+
 	//-----------------Undergoes-----------------
 	public List<Undergoes> getUndergoes(){
 		return undergoesPersistence.findAll();
@@ -245,10 +298,11 @@ public class NurseManagerService {
 	}
 	
 	public User updateUser(User user) {
-		User tmp = userPersistence.getOne(user.getUserId());
-		tmp.setEmail(user.getEmail());
-		tmp.setPassword(user.getPassword());
-		return userPersistence.save(tmp);
+		User tmpUser = userPersistence.findById(user.getUserId())
+			.orElseThrow(() -> new EntityNotFoundException(String.valueOf(user.getUserId())));
+		tmpUser.setEmail(user.getEmail());
+		tmpUser.setPassword(user.getPassword());
+		return userPersistence.save(tmpUser);
 	}
 
 	public User getUserById(int userId) {
@@ -262,5 +316,5 @@ public class NurseManagerService {
 
 	public Object getUserByEmail(String email) {
 		return userPersistence.findByEmail(email);
-	}
+	}	
 }

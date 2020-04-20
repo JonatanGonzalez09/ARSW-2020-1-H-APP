@@ -54,6 +54,9 @@ public class Undergoes implements Serializable {
 	
 	@Column(nullable=true)
 	private Timestamp Done = null;
+	
+	@Column(nullable=true)
+	private String additionalNotes = null;
 
 	public Undergoes() {
 	}
@@ -104,5 +107,13 @@ public class Undergoes implements Serializable {
 
 	public void setStay(Stay stay) {
 		this.stay = stay;
+	}
+
+	public String getAdditionalNotes() {
+		return additionalNotes;
+	}
+
+	public void setAdditionalNotes(String additionalNotes) {
+		this.additionalNotes = additionalNotes;
 	}
 }

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import edu.eci.arsw.model.Bed;
+import edu.eci.arsw.model.Patient;
 import edu.eci.arsw.model.Stay;
 
 public interface StayPersistence extends JpaRepository<Stay, Integer> {
@@ -15,5 +16,13 @@ public interface StayPersistence extends JpaRepository<Stay, Integer> {
 	List<Stay> findAllStayFromNurse(int nurseId);
 
 	List<Stay> findByBed(Bed bed);
+
+	@Query(value = "select * from stay s where s.end_time is not null", nativeQuery = true)
+	List<Stay> getStaysEnd();
+
+	@Query(value = "select * from stay s where s.end_time is null", nativeQuery = true)
+	List<Stay> getStaysNotEnd();
+
+	List<Stay> findByPatient(Patient patient);
 
 }

@@ -17,10 +17,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.eci.arsw.model.Bed;
+import edu.eci.arsw.model.Block;
 import edu.eci.arsw.model.Nurse;
+import edu.eci.arsw.model.Oncall;
+import edu.eci.arsw.model.Patient;
 import edu.eci.arsw.model.Procedure;
+import edu.eci.arsw.model.Room;
 import edu.eci.arsw.model.Stay;
 import edu.eci.arsw.model.Undergoes;
+import edu.eci.arsw.model.User;
 import edu.eci.arsw.service.NurseManagerService;
 
 @RestController
@@ -242,6 +248,26 @@ public class ManagementController {
 		}
 	}
 
+	@GetMapping("oncalls/block/{blockId}")
+	public ResponseEntity<?> getOncallByBlockId(@PathVariable("blockId") Block blockId){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getOnCallsByBlockId(blockId), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No this oncall exist", HttpStatus.NOT_FOUND);
+		} 
+	}
+
+	@GetMapping("oncalls/nurse/{nurseId}")
+	public ResponseEntity<?> getOncallByNurseId(@PathVariable("nurseId") Nurse nurseId){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getOnCallsByNurseId(nurseId), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No this oncall exist", HttpStatus.NOT_FOUND);
+		} 
+	}
+
 	//----------------Procedures-----------------------
 	@GetMapping("procedures")
 	public ResponseEntity<?> getAllProcedures(){
@@ -263,9 +289,172 @@ public class ManagementController {
 		}
 	}
 
+	@GetMapping("procedure/description/{procedureId}")
+	public ResponseEntity<?> getDescriptionByProcedureId(@PathVariable("procedureId") int procedureId){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getDescriptionProcedure(procedureId), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No exist procedure with this id", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@GetMapping("procedure/name/{procedureId}")
+	public ResponseEntity<?> getNameByProcedureId(@PathVariable("procedureId") int procedureId){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getNameProcedure(procedureId), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No exist procedure with this id", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	//---------------- Stay -----------------------
+	@GetMapping("stays")
+	public ResponseEntity<?> getAllStays(){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getStays(), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No stays exist", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@GetMapping("stay/{stayId}")
+	public ResponseEntity<?> getStayById(@PathVariable("stayId") int stayId){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getStay(stayId), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No stays exist with this id", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@GetMapping("stays/end")
+	public ResponseEntity<?> getStayEnd(){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getStayEnd(), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No stays exist ended", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@GetMapping("stays/notend")
+	public ResponseEntity<?> getStayNotEnd(){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getStayNotEnd(), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No stays exist not ended", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@GetMapping("stays/patient/{patientId}")
+	public ResponseEntity<?> getStayByPatientId(@PathVariable("patientId") Patient patient){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getStaysBypatientId(patient), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No stays exist with this patient id", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@GetMapping("stays/bed/{bedId}")
+	public ResponseEntity<?> getStayByBedId(@PathVariable("bedId") Bed bed){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getStaysByBedId(bed), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No stays exist with this block id", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	//---------------- Patient -----------------------
+	@GetMapping("patients")
+	public ResponseEntity<?> getPatients(){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getPatients(), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No patients exist ", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@GetMapping("patient/{patientId}")
+	public ResponseEntity<?> getPatientById(@PathVariable("patientId") int patientId){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getPatient(patientId), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No patients exist with this id", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@GetMapping("patients/{type}/{patientId}")
+	public ResponseEntity<?> getPatientByGovId(@PathVariable("type") String type, @PathVariable("patientId") String patientId){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getPatientByGovId(type, patientId), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No patient exist", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@GetMapping("patients/nurse/{nurseId}")
+	public ResponseEntity<?> getPatientsByNurseId(@PathVariable("nurseId") Nurse nurse){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getPatientsByNurseId(nurse), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No patient exist", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	//---------------- Bed -----------------------
+	@GetMapping("beds")
+	public ResponseEntity<?> getBeds(){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getAllBed(), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No beds exist", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@GetMapping("beds/{bedId}")
+	public ResponseEntity<?> getBedById(@PathVariable("bedId") int bedId){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getBed(bedId), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No bed exist with this id", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@GetMapping("beds/romnumber/available")
+	public ResponseEntity<?> getBedsAvailables(){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getBedsAvailables(), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No beds exist availables", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@GetMapping("beds/romnumber/unavailable")
+	public ResponseEntity<?> getBedsUnavailable(){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getBedsUnavailables(), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No beds exist unavailable", HttpStatus.NOT_FOUND);
+		}
+	}
+
 	//---------------- PUT Procedures-----------------------
 	@RequestMapping(method = RequestMethod.PUT, value = "procedures")
-	public ResponseEntity<?> updateUsers(@RequestBody Procedure procedure){
+	public ResponseEntity<?> updateProcedure(@RequestBody Procedure procedure){
 		try {
 			return new ResponseEntity<>(nurseManagerService.updateProcedure(procedure), HttpStatus.OK);
 		}catch (Exception ex) { 
@@ -276,18 +465,18 @@ public class ManagementController {
 	
 	//---------------- POST Procedures-----------------------
 	@RequestMapping(method = RequestMethod.POST, value = "procedures")
-    public ResponseEntity<?> addUser(@RequestBody Procedure procedure) {
+    public ResponseEntity<?> addProcedure(@RequestBody Procedure procedure) {
     	try {
   	      return new ResponseEntity<>(nurseManagerService.setProcedure(procedure), HttpStatus.OK);
   	    } catch (Exception ex) {
   	      Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
-  	      return new ResponseEntity<>("Error creationg User", HttpStatus.INTERNAL_SERVER_ERROR);
+  	      return new ResponseEntity<>("Error creationg procedre", HttpStatus.INTERNAL_SERVER_ERROR);
   	    }
     }
 	
 	//----------------PUT Undergoes-----------------------
 	@RequestMapping(method = RequestMethod.PUT, value = "undergoes")
-	public ResponseEntity<?> updateUsers(@RequestBody Undergoes undergoes){
+	public ResponseEntity<?> updateUndergoes(@RequestBody Undergoes undergoes){
 		try {
 			return new ResponseEntity<>(nurseManagerService.updateUndergoes(undergoes), HttpStatus.OK);
 		}catch (Exception ex) { 
@@ -298,13 +487,100 @@ public class ManagementController {
 	
 	//----------------POST Undergoes-----------------------
 	@RequestMapping(method = RequestMethod.POST, value = "undergoes")
-    public ResponseEntity<?> addUser(@RequestBody Undergoes undergoes) {
+    public ResponseEntity<?> addUnderoes(@RequestBody Undergoes undergoes) {
     	try {
   	      return new ResponseEntity<>(nurseManagerService.setUndergoes(undergoes), HttpStatus.OK);
   	    } catch (Exception ex) {
   	      Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
-  	      return new ResponseEntity<>("Error creationg User", HttpStatus.INTERNAL_SERVER_ERROR);
+  	      return new ResponseEntity<>("Error creationg Undergoes", HttpStatus.INTERNAL_SERVER_ERROR);
   	    }
-    }
+	}
+	
+	//----------------PUT Stay-----------------------
+	@RequestMapping(method = RequestMethod.PUT, value = "stays")
+	public ResponseEntity<?> updateStay(@RequestBody Stay stay){
+		try {
+			return new ResponseEntity<>(nurseManagerService.updateStay(stay), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("Error updating this stay. ", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
+	//----------------POST Stay-----------------------
+	@RequestMapping(method = RequestMethod.POST, value = "stays")
+    public ResponseEntity<?> addStay(@RequestBody Stay stay) {
+    	try {
+  	      return new ResponseEntity<>(nurseManagerService.setStay(stay), HttpStatus.OK);
+  	    } catch (Exception ex) {
+  	      Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+  	      return new ResponseEntity<>("Error creationg stay", HttpStatus.INTERNAL_SERVER_ERROR);
+  	    }
+	}
+
+	//---------------- PUT OnCalls-----------------------
+	@RequestMapping(method = RequestMethod.PUT, value = "oncalls")
+	public ResponseEntity<?> updateOncalls(@RequestBody Oncall oncall){
+		try {
+			return new ResponseEntity<>(nurseManagerService.updateOncall(oncall), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("Error updating this oncall. ", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	//---------------- POST OnCalls-----------------------
+	@RequestMapping(method = RequestMethod.POST, value = "oncalls")
+    public ResponseEntity<?> addOncalls(@RequestBody Oncall oncall) {
+    	try {
+  	      return new ResponseEntity<>(nurseManagerService.setOncall(oncall), HttpStatus.OK);
+  	    } catch (Exception ex) {
+  	      Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+  	      return new ResponseEntity<>("Error creationg oncalls", HttpStatus.INTERNAL_SERVER_ERROR);
+  	    }
+	}
+
+	//----------------POST Room-----------------------
+	@RequestMapping(method = RequestMethod.POST, value = "rooms")
+    public ResponseEntity<?> addRoom(@RequestBody Room room) {
+    	try {
+  	      return new ResponseEntity<>(nurseManagerService.setRoom(room), HttpStatus.OK);
+  	    } catch (Exception ex) {
+  	      Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+  	      return new ResponseEntity<>("Error creationg rooms", HttpStatus.INTERNAL_SERVER_ERROR);
+  	    }
+	}
+
+	//---------------- PUT Nurse-----------------------
+	@RequestMapping(method = RequestMethod.PUT, value = "nurses")
+	public ResponseEntity<?> updateNurse(@RequestBody Nurse nurse){
+		try {
+			return new ResponseEntity<>(nurseManagerService.updateNurse(nurse), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("Error updating this nurse. ", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	//---------------- PUT Bed-----------------------
+	@RequestMapping(method = RequestMethod.PUT, value = "beds")
+	public ResponseEntity<?> updateBed(@RequestBody Bed bed){
+		try {
+			return new ResponseEntity<>(nurseManagerService.updateBed(bed), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("Error updating this bed. ", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	//---------------- PUT User-----------------------
+	@RequestMapping(method = RequestMethod.PUT, value = "users")
+	public ResponseEntity<?> updateUser(@RequestBody User user){
+		try {
+			return new ResponseEntity<>(nurseManagerService.updateUser(user), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("Error updating this user. ", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }

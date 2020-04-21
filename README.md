@@ -84,6 +84,39 @@ https://drive.google.com/drive/folders/1hvCMZi-28FHQ9eHM8lZRvgDKDoNwJfgX
 **Link de la aplicación en Heroku**
 https://happ2020.herokuapp.com/
 
+
+### **Requerimientos no funcionales** ###
+
+## Performance
+
+![Performance 1 ](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/Non%20functional%20Requierments/Performance1.png)
+
+![Performance 2 ](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/Non%20functional%20Requierments/Performance2.png)
+
+## Usabilidad
+
+![Usabilidad 1 ](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/Non%20functional%20Requierments/Usability1.png)
+
+![Usabilidad 2 ](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/Non%20functional%20Requierments/Usability2.png)
+
+## Escalabiliad
+
+![Escalabilidad 1 ](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/Non%20functional%20Requierments/Escalabilidad1.png)
+
+![Escalabilidad 2 ](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/Non%20functional%20Requierments/Escalabilidad2.png)
+
+## Disponibilidad
+
+![Disponibilidad 1 ](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/Non%20functional%20Requierments/Disponibilidad1.png)
+
+![Disponibilidad 2 ](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/Non%20functional%20Requierments/Disponibilidad2.png)
+
+## Seguridad
+
+![Seguridad 1 ](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/Non%20functional%20Requierments/Seguridad1.png)
+
+![Seguridad 2 ](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/Non%20functional%20Requierments/Seguridad2.png)
+
 ### **Indicaciones de Uso** ###
 
 Existen tres usuarios por defecto

@@ -84,6 +84,9 @@ https://drive.google.com/drive/folders/1hvCMZi-28FHQ9eHM8lZRvgDKDoNwJfgX
 **Link de la aplicación en Heroku**
 https://happ2020.herokuapp.com/
 
+**Link del Front en Heroku**
+https://h-app-front.herokuapp.com/login
+
 
 ### **Requerimientos no funcionales** ###
 

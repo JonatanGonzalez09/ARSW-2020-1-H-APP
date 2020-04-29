@@ -22,6 +22,7 @@ import edu.eci.arsw.model.Block;
 import edu.eci.arsw.model.Nurse;
 import edu.eci.arsw.model.Stay;
 import edu.eci.arsw.model.Undergoes;
+import edu.eci.arsw.service.AdminService;
 import edu.eci.arsw.service.NurseAssistantService;
 
 @RestController
@@ -32,11 +33,25 @@ public class NurseAssistantController {
 	@Autowired
 	private NurseAssistantService nurseAssistantService;
 
+	@Autowired // --- para test
+    private AdminService adminService;
+
 	private String loginUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         return currentPrincipalName;
 	}
+
+	//------------------- GET Nurse-----------------
+    @GetMapping("nurses") // --- para test 
+    public ResponseEntity<?> nurses() {
+    	try {
+    	      return new ResponseEntity<>(adminService.getAllNurses(), HttpStatus.OK);
+    	    } catch (Exception ex) {
+    	      Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+    	      return new ResponseEntity<>("No nurses on the database", HttpStatus.NOT_FOUND);
+    	    }
+    }
 	
 	//----------------User-----------------------
 	@GetMapping("user")

@@ -16,4 +16,8 @@ public interface ProcedurePersistence extends JpaRepository<Procedure, Integer> 
     
     @Query(value = "select p.name from \"procedure\" p where p.procedure_id = :idProcedure", nativeQuery = true)
 	String getNameByProcedureId(int idProcedure);
+
+    @Query(value = "select p.* from \"procedure\" p join undergoes on p.procedure_id = undergoes.procedure_id where p.procedure_id = :undergoesId", nativeQuery = true)
+    Procedure getNameUndergoesId(int undergoesId);
+    
 }

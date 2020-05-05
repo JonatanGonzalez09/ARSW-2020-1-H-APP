@@ -309,6 +309,16 @@ public class ManagementController {
 		}
 	}
 
+	@GetMapping("procedure/undergoes/{undergoesId}")
+	public ResponseEntity<?> getProceduresByUndergoesId(@PathVariable("undergoesId") int undergoesId){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getProcedureByUndergoesId(undergoesId), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No exist procedure with this undergoes id", HttpStatus.NOT_FOUND);
+		}
+	}
+
 	//---------------- Stay -----------------------
 	@GetMapping("stays")
 	public ResponseEntity<?> getAllStays(){
@@ -449,6 +459,17 @@ public class ManagementController {
 		}catch (Exception ex) { 
 			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
 			return new ResponseEntity<>("No beds exist unavailable", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	//---------------- Block-----------------------
+	@GetMapping("block/patient/{patientId}")
+	public ResponseEntity<?> getBlockByIdPatient(@PathVariable("patientId") int patientId){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getBlockByPatientId(patientId), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No patient exist with this blockId", HttpStatus.NOT_FOUND);
 		}
 	}
 

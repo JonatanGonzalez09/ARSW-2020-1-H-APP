@@ -69,6 +69,11 @@ public class NurseManagerService {
 		return blockPersistence.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
 	}
+
+	public Block getBlockByPatientId(int patientId) {
+		return blockPersistence.getBlockByPatientId(patientId);
+	}
+
 	//-----------------Nurse----------------------
 	public List<Nurse> getAllNurses(){
 		return nursePersistence.findAll();
@@ -172,6 +177,10 @@ public class NurseManagerService {
 		procedureTmp.setName(procedure.getName());
 		return procedurePersistence.save(procedureTmp);
 	}
+
+	public Procedure getProcedureByUndergoesId(int undergoesId) {
+		return procedurePersistence.getNameUndergoesId(undergoesId);
+	}	
 
 	//-----------------Room----------------------
 	public List<Room> getRooms(){
@@ -316,5 +325,6 @@ public class NurseManagerService {
 
 	public Object getUserByEmail(String email) {
 		return userPersistence.findByEmail(email);
-	}	
+	}
+
 }

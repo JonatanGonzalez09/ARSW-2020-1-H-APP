@@ -13,4 +13,7 @@ public interface BlockPersistence extends JpaRepository<Block, Integer> {
 	List findAllBasicInfo();
 	Block findByBlockcode(int id);
 	List<Block> findByBlockfloor(int floor);
+
+	@Query(value = "select block.* from patient p join stay on p.patient_id = stay.patient_id join bed on stay.bed_id = bed.bed_id join room on bed.roomnumber = room.roomnumber join block on room.blockcode = block.blockcode where p.patient_id = :patientId", nativeQuery = true)
+    Block getBlockByPatientId(int patientId);
 }

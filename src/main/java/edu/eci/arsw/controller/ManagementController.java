@@ -41,8 +41,42 @@ public class ManagementController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         return currentPrincipalName;
-    }
-    
+	}
+	
+	//---------------- Nurse -----------------------
+	/* Today */
+	@GetMapping("nurses/block/{blockId}")
+	public ResponseEntity<?> getNurseByBlockId(@PathVariable("blockId") int blockId ){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getNursesByBlockId(blockId), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No nurses exist with this block id", HttpStatus.NOT_FOUND);
+		} 
+	}
+	
+	/* Today */
+	@GetMapping("nurses/block/{blockId}/{date}")
+	public ResponseEntity<?> getNurseByBlockId(@PathVariable("blockId") int blockId, @PathVariable("date") Date date ){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getNursesByBlockIdAndDate(blockId, date), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No nurses exist with this block id and this date", HttpStatus.NOT_FOUND);
+		} 
+	}
+	
+	/* Today */
+	@GetMapping("nurses/block/{blockId}/today")
+	public ResponseEntity<?> getNurseByBlockIdToday(@PathVariable("blockId") int blockId){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getNursesByBlockIdToday(blockId), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No nurses exist with this block id and this date", HttpStatus.NOT_FOUND);
+		} 
+	}
+	
     //----------------User-----------------------
     @GetMapping("users")
 	public ResponseEntity<?> getUsers(){
@@ -206,6 +240,28 @@ public class ManagementController {
 			return new ResponseEntity<>("No exist undergoes for this id of stay", HttpStatus.NOT_FOUND);
 		}
 	}
+
+	/* Today */
+	@GetMapping("undergoes/{blockId}/{date}")
+	public ResponseEntity<?> getUndergoesByBlockIdDate(@PathVariable("blockId") int blockId, @PathVariable("date") Date date){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getNurseUndergoesByBlockIdAndDate(blockId, date), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No undergoes exist with this block id and this date", HttpStatus.NOT_FOUND);
+		} 
+	}
+
+	/* Today */
+	@GetMapping("undergoes/today/nurse/{nurseId}")
+	public ResponseEntity<?> getUndergoesTodayByNurseId(@PathVariable("nurseId") int nurseId){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getUndergoesTodayByNurseId(nurseId), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No undergoes exist today with this nurse id", HttpStatus.NOT_FOUND);
+		} 
+	}
 	
 	//----------------OnCalls-----------------------
 	@GetMapping("oncalls")
@@ -268,7 +324,7 @@ public class ManagementController {
 		} 
 	}
 
-	//----------------Procedures-----------------------
+	//---------------- Procedures -----------------------
 	@GetMapping("procedures")
 	public ResponseEntity<?> getAllProcedures(){
 		try {
@@ -316,6 +372,16 @@ public class ManagementController {
 		}catch (Exception ex) { 
 			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
 			return new ResponseEntity<>("No exist procedure with this undergoes id", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@GetMapping("procedures/patient/{patientId}")
+	public ResponseEntity<?> getProceduresByPatientId(@PathVariable("patientId") int patientId){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getProcedureByPatientId(patientId), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No exist procedure with this patient id", HttpStatus.NOT_FOUND);
 		}
 	}
 
@@ -469,7 +535,18 @@ public class ManagementController {
 			return new ResponseEntity<>(nurseManagerService.getBlockByPatientId(patientId), HttpStatus.OK);
 		}catch (Exception ex) { 
 			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
-			return new ResponseEntity<>("No patient exist with this blockId", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("No block exist with this patient id", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	//---------------- Room -----------------------
+	@GetMapping("room/patient/{patientId}")
+	public ResponseEntity<?> getRoomByIdPatient(@PathVariable("patientId") int patientId){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getRoomByPatientId(patientId), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No room exist with this patient id", HttpStatus.NOT_FOUND);
 		}
 	}
 

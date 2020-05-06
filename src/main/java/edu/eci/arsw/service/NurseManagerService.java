@@ -1,7 +1,6 @@
 package edu.eci.arsw.service;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
@@ -92,6 +91,26 @@ public class NurseManagerService {
 		return nursePersistence.save(tmpNurse);		
 	}
 
+	public List<Nurse> getNursesByBlockId(int blockId) {
+		return nursePersistence.getNursesByBlockId(blockId);
+	}
+
+	public List<Nurse> getNursesByBlockIdAndDate(int blockId, Date date) {
+		return nursePersistence.getNursByBlockIdAndDate(blockId, date);
+	}
+
+	public List<Nurse> getNursesByBlockIdToday(int blockId) {
+		return nursePersistence.getNursByBlockIdToday(blockId);
+	}
+
+	public List<Undergoes> getNurseUndergoesByBlockIdAndDate(int blockId, Date date) {
+		return undergoesPersistence.getUndergoesByBlockIdAndDate(blockId, date);
+	}
+
+	public List<Undergoes> getUndergoesTodayByNurseId(int nurseId) {
+		return undergoesPersistence.getTodayUndergoesByNurseId(nurseId);
+	}
+
 	//-----------------Oncall----------------------
 	public List<Oncall> getAllOncalls(){
 		return oncallPersistence.findAll();
@@ -180,7 +199,11 @@ public class NurseManagerService {
 
 	public Procedure getProcedureByUndergoesId(int undergoesId) {
 		return procedurePersistence.getNameUndergoesId(undergoesId);
-	}	
+	}
+	
+	public List<Procedure> getProcedureByPatientId(int patientId) {
+		return procedurePersistence.getProcedureByPatientId(patientId);
+	}
 
 	//-----------------Room----------------------
 	public List<Room> getRooms(){
@@ -194,6 +217,10 @@ public class NurseManagerService {
 	
 	public Room setRoom(Room room) {
 		return roomPersistence.save(room);
+	}
+
+	public Room getRoomByPatientId(int patientId) {
+		return roomPersistence.getRoomByPatientId(patientId);
 	}
 		
 	//-----------------Stay----------------------

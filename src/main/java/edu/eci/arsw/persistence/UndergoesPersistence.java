@@ -27,6 +27,9 @@ public interface UndergoesPersistence extends JpaRepository<Undergoes, Integer> 
 	List<Undergoes> findByStay(Stay stay);
 	List<Undergoes> findByProcedure(Procedure procedure);
 
-	
+	@Query(value= "select u.* from undergoes u join nurse on u.nurse_id = nurse.nurse_id join on_call on nurse.nurse_id = on_call.nurse_id join block on on_call.blockcode = block.blockcode where block.blockcode = :blockId and DATE (on_call.oncallstart) = :date", nativeQuery = true)
+	List<Undergoes> getUndergoesByBlockIdAndDate(int blockId, Date date);
 
+	@Query(value= "select u.* from undergoes u join nurse on u.nurse_id = nurse.nurse_id join on_call on nurse.nurse_id = on_call.nurse_id where nurse.nurse_id = :nurseId and DATE (on_call.oncallstart) = (select now()::date)", nativeQuery = true)
+	List<Undergoes> getTodayUndergoesByNurseId(int nurseId);
 }

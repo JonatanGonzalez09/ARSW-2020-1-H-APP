@@ -341,12 +341,12 @@ public class NurseManagerService {
 		return undergoesPersistence.getTodayUndergoesByNurseId(nurseId);
 	}
 	
-	@Cacheable(cacheNames= "undergoes", key= "#undergoes.id")
+	//@Cacheable(cacheNames= "undergoes", key= "#undergoes.undergoesId")
 	public Undergoes setUndergoes(Undergoes undergoes) {
 		return undergoesPersistence.save(undergoes);
 	}
 	
-	@CachePut(cacheNames= "undergoes", key= "#undergoes.id")
+	//@CachePut(cacheNames= "undergoes", key= "#undergoes.undergoesId")
 	public Undergoes updateUndergoes(Undergoes undergoes) {
 		Undergoes undergoesTmp = undergoesPersistence.findById(undergoes.getUndergoesId())
 								.orElseThrow(() -> new EntityNotFoundException(String.valueOf(undergoes.getUndergoesId())));

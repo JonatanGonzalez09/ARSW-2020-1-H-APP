@@ -81,7 +81,7 @@ public class AdminController {
   	    }
     }
     
-    @GetMapping("users/nurse/{id}")
+    @GetMapping("users/nurse/{id}") //----este 
     public ResponseEntity<?>  userNurse(@PathVariable ("id") int id) {
     	try {
   	      return new ResponseEntity<>(adminService.getUserByNurse(id), HttpStatus.OK);

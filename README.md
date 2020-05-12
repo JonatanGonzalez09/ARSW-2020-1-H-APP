@@ -138,8 +138,6 @@ https://drive.google.com/drive/folders/1hvCMZi-28FHQ9eHM8lZRvgDKDoNwJfgX
 
 ![Escalabilidad 1 ](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/Non%20functional%20Requierments/Escalabilidad1.png)
 
-![Escalabilidad 2 ](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/Non%20functional%20Requierments/Escalabilidad2.png)
-
 ## Disponibilidad
 
 ![Disponibilidad 1 ](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/Non%20functional%20Requierments/Disponibilidad1.png)
@@ -151,7 +149,6 @@ https://drive.google.com/drive/folders/1hvCMZi-28FHQ9eHM8lZRvgDKDoNwJfgX
 ![Seguridad 1 ](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/Non%20functional%20Requierments/Seguridad1.png)
 
 ![Seguridad 2 ](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/Non%20functional%20Requierments/Seguridad2.png)
-
 
 
 Abra los links para observar el diseño de la interfaz gráfica usando el Wireframe **Balsamiq**

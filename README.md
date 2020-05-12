@@ -2,11 +2,29 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/808778ab71044192946b471d27e6c39f)](https://app.codacy.com/manual/JonatanGonzalez09/ARSW-2020-1-H-APP/dashboard?bid=17170766)
 
-## Definición de proyecto ##
+# Definición de proyecto #
 
 ### Título : H-APP ###
 
-### Integrantes: ###
+### Asignatura: Arquitectura de software ###
+
+## Descripción ##
+
+El objetivo era definir, diseñar e implementar una aplicación Web, la cual debe cumplir con los requerimientos presentados durante el semestre. El proyecto se desarrolló a lo largo del semestre 2020-1, para ello se usó la metodología Scrum a través de la implementación de 3 Sprints de trabajo. 
+
+### Proyecto planteado ###
+
+#### Resumen: ####
+
+Construcción de una plataforma web que apoye las labor de las enfermeras en cuanto al mentenimiento de la historia clínica y seguimiento de tareas asignadas.
+
+#### Problema: #### 
+
+Las tareas de una enfermar son muchas, dentro de estas están mantener actualizada la historia médica de un paciente cuando este está hospitalizado y cumplir con los procedimientos asignados a estos, ya sean llevarlos a exámenes, tomas de signos vitales, asegurar que el paciente tome sus medicamentos, entre otros. 
+
+En un hospital donde un piso puede tener más de 20 cuartos las enfermeras asignadas deben estar pendientes de todos los pacientes presentes, muchas veces las enfermeras olvidan anotar algo que se le realizó al paciente, se acuerdan tarde de dar un medicamento o les toca quedarse después de su turno de trabajo a digitalizar y/o anotar todo lo que sucedió en el día.
+
+### Autores: ###
 
  - Juan Alberto Mejía S.
  
@@ -14,34 +32,52 @@
  
  - Jimmy Andres Moya S.
  
-### Resumen: ###
-_Construcción de una plataforma web que apoye las tareas/responsabilidades de las enfermeras jefes y auxiliares en un hospital,para llevar a cabo un mejor control de pacientes en tiempo real._
+### Heroku ### 
 
-### Descripción: ###
+La aplicación se dividió en front y back 
 
-**Problema:** _La gestión de datos de los pacientes de un hospital se convierte en una tarea tediosa cuando las enfermeras necesitan visualizar la información de varios pacientes de forma clara y rápida. Como las enfermedades, alergias, y otras posibles condiciones que pueden afectar su estado de salud. Además tiene que lidiar con datos en papel, los cuales pueden ser escritos a mano o extraviados por otros auxiliares. Como consecuencia a esto, los otros auxiliares tardan en comprender el tratamiento actual que está recibiendo el paciente y otras posibles observaciones que se han evidenciado en los turnos y/o boletines médicos pasados, también lidian con confusiones de los resultados de exámenes médicos._
+**Back: 
+https://happ2020.herokuapp.com/**
 
-**Características:** _Las enfermeras jefes y auxiliares podrán tener un reporte en tiempo real de las enfermedades, tratamientos, resultados de examenes, examenes programados  y observaciones de cada paciente asignado en el  turno de cada enfermera y así poder brindarles a los pacientes una mejor atención y cuidado. También le permitirá ver a las enfermeras jefes los pacientes que presenten alguna complicación. Esta debe ser notificada por la auxiliar de enfermería y le llegara un mensaje de alerta a la enfermera jefe para que haga su respectivo procedimiento._
+**Front: 
+https://h-app-front.herokuapp.com/login**
 
-### **Diagrama de Clases** ###
-![](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/diagramaClases.jpg)
+## Arquitectura de la aplicación ##
 
-### **Casos de Uso** ###
-![](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/casosDeUso.jpg)
+### Diagrama de Clases ###
+![](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/diagramaClases.png)
 
-### **Diagrama de Entidad Relación** ###
+### Diagrama de Entidad Relación ###
 ![](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/ER.png)
 
-### **Diagrama de Despliegue** ###
+### Diagrama de Despliegue ###
 ![](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/Diagrama%20de%20despliegue.png)
+
+### Casos de Uso ###
+![](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/casosDeUso.jpg)
 
 ### **Diagrama de Componentes** ###
 ![](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/Diagrama%20de%20componentes.png)
 
+### **Indicaciones de Uso** ###
+
+Existen tres usuarios por defecto
+ - admin 
+ - manager
+ - assistant
+ 
+La contraseña para cada usario es el username + 123 por ejemplo usuario admin contraseña admin123
+
+El administrados solo cumple como su nombre lo dice tareas administrativas y no puede acceder a los pacientes o a las funcionalidades de las enfermeras
+
+Las enfermeras jefes (manager) son las que tienen más funcionalidades, ellas pueden asignar tareas a las enfermeras, procedimientos a los pacientes.
+
+Las enfermeras asistentes tienen funcionalidades restringidas, ellas pueden ver los procedimientos asignados a ellas y decir cuando los completaron.
+
 ### **Historias de Usuario** ###
 
 **_Administrador_**:
- - **COMO** Administrador **QUIERO** iniciar sesión **PARA PODER** administrar H-APP y sus recursos.
+ - **COMO** Administrador **QUIERO** iniciar sesión **PARA PODER** administrar H-APP y **sus recursos.
  - **COMO** Administrador **QUIERO** cerrar sesión **PARA PODER** garantizar la integridad de la información.
  - **COMO** Administrador **QUIERO** agregar enfermero/a **PARA PODER** añadirlo al sistema del hospital.
  - **COMO** Administrador **QUIERO** agregar un piso **PARA PODER** habilitar una nueva zona para pacientes.
@@ -81,11 +117,7 @@ _Construcción de una plataforma web que apoye las tareas/responsabilidades de l
 **Link del Drive del proyecto**
 https://drive.google.com/drive/folders/1hvCMZi-28FHQ9eHM8lZRvgDKDoNwJfgX
 
-**Link de la aplicación en Heroku**
-https://happ2020.herokuapp.com/
 
-**Link del Front en Heroku**
-https://h-app-front.herokuapp.com/login
 
 
 ### **Requerimientos no funcionales** ###
@@ -120,28 +152,15 @@ https://h-app-front.herokuapp.com/login
 
 ![Seguridad 2 ](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/Non%20functional%20Requierments/Seguridad2.png)
 
-### **Indicaciones de Uso** ###
 
-Existen tres usuarios por defecto
- - admin 
- - manager
- - assistant
- 
-La contraseña para cada usario es el username + 123 por ejemplo usuario admin contraseña admin123
-
-El administrados solo cumple como su nombre lo dice tareas administrativas y no puede acceder a los pacientes o a las funcionalidades de las enfermeras
-
-Las enfermeras jefes (manager) son las que tienen mas funcionalidades
-
-Las enfermeras asistentes tienen funcionalidades restringidas pero son las que necesitan para realizar su trabajo
 
 Abra los links para observar el diseño de la interfaz gráfica usando el Wireframe **Balsamiq**
 
-[Administrador](https://balsamiq.cloud/secxh97/pl9u9j5/r2278)
+[Administrador](https://balsamiq.cloud/s86k2wg/pkw0j2s)
 
-[Enfermera jefe](https://balsamiq.cloud/secxh97/pqdt8dm)
+[Enfermera jefe](https://balsamiq.cloud/s86k2wg/piokebl/r1C5F)
 
-[Enfermera Auxiliar](https://balsamiq.cloud/secxh97/p99hqvl/r2278)
+[Enfermera Auxiliar](https://balsamiq.cloud/s86k2wg/po0go6a)
 
 
 

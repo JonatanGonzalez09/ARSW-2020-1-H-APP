@@ -358,6 +358,10 @@ public class NurseManagerService {
 		return undergoesPersistence.save(undergoesTmp);				
 	}
 
+	public List<Undergoes> getUndergoesNotDoneByNurseId(int nurseId) {
+		return undergoesPersistence.getUndergoesNoDoneByNurseId(nurseId);
+	}
+
 	//-----------------User----------------------
 	public List<User> getAllUsers(){
 		return userPersistence.findAll();

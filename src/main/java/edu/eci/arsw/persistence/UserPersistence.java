@@ -19,4 +19,7 @@ public interface UserPersistence extends JpaRepository<User, Integer> {
 	User findByEmail(String email);
 	User findByGovIdAndGovType(String govId, String govType);
 	User findByNurses(Nurse nurse);
+
+	@Query(value="select us.* from usuarios us join nurse n on us.user_id = n.usuarios_user_id join on_call on n.nurse_id = on_call.nurse_id join block on on_call.blockcode = block.blockcode where n.\"position\"= 'mngr' and block.blockcode = (select block.blockcode from usuarios us join nurse on us.user_id = nurse.usuarios_user_id join on_call on nurse.nurse_id = on_call.nurse_id join block on on_call.blockcode = block.blockcode where us.login_user = :userNurseAssistant and on_call.oncallend is null)", nativeQuery = true)
+	User getBossNurseByUser(String userNurseAssistant);
 }

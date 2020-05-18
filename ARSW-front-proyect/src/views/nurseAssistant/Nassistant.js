@@ -1,16 +1,15 @@
 import { Button, FormControl, FormHelperText, Grid, InputLabel, NativeSelect, Paper, Typography } from '@material-ui/core';
 import Axios from 'axios';
-import { Client } from '@stomp/stompjs';
 import React, { Component } from 'react';
 import cookie from 'react-cookies';
 import CustomTable from '../CustomTable';
+import TextField from '@material-ui/core/TextField';
+
+import SockJsClient from 'react-stomp';
 
 
 export default class Nassistant extends Component {
 
-    state = {
-        serverTime: null,
-    }
     constructor(props) {
         super(props);
         this.state = { 
@@ -33,6 +32,11 @@ export default class Nassistant extends Component {
             enfermeras:[],
             alerta: false,
             text:"",
+            messages: [],
+            typedMessage: "",
+            name: "",
+            usersend:"",
+            user:""
         }
         this.logout = this.logout.bind(this)
     }
@@ -41,10 +45,54 @@ export default class Nassistant extends Component {
         { id: 'IdProcedure', label: 'Id' },
         { id: 'nProcedure', label: 'Procedure' }
       ];
-
+    sendMessage = () => {
+        this.clientRef.sendMessage('/app/user-all', JSON.stringify({
+            name: this.state.user,
+            message: this.state.typedMessage
+        }));
+    };
+    
+    displayMessages = () => {
+        return (
+            <div>
+                {this.state.messages.map(msg => {
+                    return (
+                        <div>
+                            {this.state.name == msg.name ?
+                                <div>
+                                    <p className="title1">{msg.name} : </p><br/>
+                                    <p>{msg.message}</p>
+                                </div> :
+                                <div>
+                                    <p className="title2">{msg.name} : </p><br/>
+                                    <p>{msg.message}</p>
+                                </div>
+                            }
+                        </div>)
+                })}
+            </div>
+        );
+    };
     componentDidMount() {
+        var jwtDecode = require('jwt-decode');
         var token = cookie.load('userToken');
         console.log(token);
+        let deco = jwtDecode(token);
+        console.log(deco.sub);
+        console.log("usuario");
+        console.log(deco.sub);
+        this.setState({
+            usersend:deco.sub
+        })
+        Axios.get("/assistant-nurse/boss/nurse/user/patriciaM") //cambiar patriciaM" por "+this.state.usersend
+        .then(res =>{
+            console.log(res.data.loginUser)
+            this.setState({
+                user:res.data.loginUser
+            })
+            
+            
+        });
         Axios.get("/assistant-nurse/nurses")
         .then(res =>{
             console.log(res.data)
@@ -59,48 +107,14 @@ export default class Nassistant extends Component {
                 pacientes:res.data
             })
         });
-        console.log('Component did mount');
-        // The compat mode syntax is totally different, converting to v5 syntax
-        // Client is imported from '@stomp/stompjs'
-        this.client = new Client();
-    
-        console.log(this.client);
-    
-        console.log('client');
-        this.client.configure({
-            
-          brokerURL: 'ws://localhost:8081/stomp',
-          onConnect: () => {
-            console.log('onConnect');
-    
-            this.client.subscribe('/queue/now', message => {
-              console.log(message);
-              this.setState({serverTime: message.body});
-            });
-    
-            this.client.subscribe('/topic/greetings', message => {
-              alert(message.body);
-            });
-          },
-          // Helps during debugging, remove in production
-          debug: (str) => {
-            console.log(new Date(), str);
-          }
-        });
-    
-        this.client.activate();
+        
     }
-    clickHandler = (event) => {
-        console.log(this.text);
-        this.setState({value: event.target.text});
-      this.client.publish({destination: '/app/greetings', body:this.state.text});
-    }
-
     logout(){
         cookie.remove('userToken',{path:'/'})
         console.log(cookie.load('userToken'))
         this.props.history.push("/")
     }
+    
     alert = (event) => {
         console.log("Alerta");
         this.setState({
@@ -128,12 +142,6 @@ export default class Nassistant extends Component {
         // console.log(event.target.value);
         this.setState({nHabitacion:event.target.value}, () => {
             this.load(this.state.nHabitacion);
-        })
-    }
-    datachange = (event) => {
-        console.log(event.target.value);
-        this.setState({
-            text: event.target.value
         })
     }
 
@@ -171,6 +179,7 @@ export default class Nassistant extends Component {
     render() {
         return (
             <div>
+            <div>
                 <Grid container spacing={3}>
                     <Grid item xs={6} style={{ padding: 3 }}>
                         <Grid container spacing={3}>
@@ -193,22 +202,30 @@ export default class Nassistant extends Component {
                                     variant="contained"
                                     color="primary"
                                     className="submit"
+                                    
                                     onClick = {this.alert}
                                     >
                                     Alerta
                                 </Button>
                             </Grid>
                             {this.state.alert == true ? 
-                             <form onSubmit={this.clickHandler}>
-                            <Grid container style={{marginBottom: "3%"}}>
-                            <Grid item xs={2}></Grid>                                       
-                            <Grid item xs={6} component={Paper} style={{padding: 5}}>
-                            <input type="text" value={this.state.text} onChange={this.datachange} />
-                            </Grid>
-                            <input type="submit" value="Submit" />
-                            <Grid item xs={2}></Grid>
-                        </Grid>
-                        </form>
+                              <div className="align-center">
+                              <br/><br/>
+                              <table>
+                                  <tr>
+                                      <td>
+                                          <TextField id="outlined-basic" label="Escriba su alerta una alerta:" variant="outlined"
+                                                     onChange={(event) => {
+                                                         this.setState({typedMessage: event.target.value});
+                                                     }}/>
+                                      </td>
+                                      <td>
+                                          <Button variant="contained" color="primary"
+                                                  onClick={this.sendMessage}>Enviar</Button>
+                                      </td>
+                                  </tr>
+                              </table>
+                          </div>
                             :
                             ""
                         }
@@ -328,6 +345,25 @@ export default class Nassistant extends Component {
                     
 
                 </Grid>
+            </div>
+                <SockJsClient url='http://localhost:8081/websocket-chat/'
+                              topics={['/topic/user']}
+                              onConnect={() => {
+                                  console.log("connected");
+                              }}
+                              onDisconnect={() => {
+                                  console.log("Disconnected");
+                              }}
+                              onMessage={(msg) => {
+                                  var jobs = this.state.messages;
+                                  jobs.push(msg);
+                                  this.setState({messages: jobs});
+                                  console.log(this.state);
+                              }}
+                              ref={(client) => {
+                                  this.clientRef = client
+                              }}/>
+            
             </div>
         )
     }

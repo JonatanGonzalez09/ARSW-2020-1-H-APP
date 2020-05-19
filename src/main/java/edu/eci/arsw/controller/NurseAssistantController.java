@@ -144,7 +144,7 @@ public class NurseAssistantController {
 			return new ResponseEntity<>(nurseAssistantService.getRoomsByGovId(nurseGovId), HttpStatus.OK);
 		}catch (Exception ex) { 
 			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
-			return new ResponseEntity<>("No patient exist", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("No rooms exist", HttpStatus.NOT_FOUND);
 		}
 	}
 

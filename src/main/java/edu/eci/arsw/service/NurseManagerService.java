@@ -264,6 +264,7 @@ public class NurseManagerService {
 		Stay auxStay = null;
 		List <Stay> staysList = getStaysBypatientId(stay.getPatient());
 		for(Stay aux : staysList){
+			System.out.println("aux --- " + aux);
 			if(aux.getEndTime().equals(null)){
 				auxStay = aux;
 			}

@@ -1,6 +1,7 @@
 package edu.eci.arsw.controller;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -620,7 +621,7 @@ public class ManagementController {
 	//----------------POST Stay-----------------------
 	@RequestMapping(method = RequestMethod.POST, value = "stays")
     public ResponseEntity<?> addStay(@RequestBody Stay stay) {
-		System.out.println(stay);
+		System.out.println(stay.toString());
     	try {
   	      return new ResponseEntity<>(nurseManagerService.setStay(stay), HttpStatus.OK);
   	    } catch (Exception ex) {

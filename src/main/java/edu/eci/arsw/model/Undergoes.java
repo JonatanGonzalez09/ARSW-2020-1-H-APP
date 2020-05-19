@@ -46,7 +46,7 @@ public class Undergoes implements Serializable {
 	@JoinColumn(name="procedure_id", nullable=false)
 	private Procedure procedure;
 
-	//bi-directional many-to-one association to Stay"
+	//bi-directional many-to-one association to Stay
 	@JsonBackReference(value="stay-undergoes")
 	@ManyToOne(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinColumn(name="stay_id", nullable=false)

@@ -354,8 +354,12 @@ public class NurseManagerService {
 		undergoesTmp.setDate(undergoes.getDate());
 		undergoesTmp.setNurse(undergoes.getNurse());
 		undergoesTmp.setProcedure(undergoes.getProcedure());
-		undergoesTmp.setStay(undergoes.getStay());		
+		undergoesTmp.setStay(undergoes.getStay()); 	
 		return undergoesPersistence.save(undergoesTmp);				
+	}
+
+	public List<Undergoes> getUndergoesNotDoneByNurseId(int nurseId) {
+		return undergoesPersistence.getUndergoesNoDoneByNurseId(nurseId);
 	}
 
 	//-----------------User----------------------

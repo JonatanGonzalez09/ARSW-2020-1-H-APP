@@ -35,7 +35,7 @@ public class Stay implements Serializable {
 	private Integer stayId;
 
 	@Column(name="end_time")
-	private Timestamp endTime;
+	private Timestamp endTime = null;
 
 	@Column(name="start_time", nullable=false)
 	private Timestamp startTime;

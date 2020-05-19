@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.eci.arsw.model.Bed;
 import edu.eci.arsw.model.Block;
 import edu.eci.arsw.model.Nurse;
+import edu.eci.arsw.model.Procedure;
 import edu.eci.arsw.model.Stay;
 import edu.eci.arsw.model.Undergoes;
 import edu.eci.arsw.service.AdminService;
@@ -328,6 +329,28 @@ public class NurseAssistantController {
 		}catch (Exception ex) { 
 			Logger.getLogger(NurseAssistantController.class.getName()).log(Level.SEVERE, null, ex);
 			return new ResponseEntity<>("No stay exist with this bed Id.", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	//----------------PUT Stay----------------------
+	@RequestMapping(method = RequestMethod.PUT, value = "stays")
+	public ResponseEntity<?> updateStay(@RequestBody Stay stay){
+		try {
+			return new ResponseEntity<>(nurseAssistantService.updateStay(stay), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("Error updating this stay. ", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	//----------------PUT Procedure----------------------
+	@RequestMapping(method = RequestMethod.PUT, value = "procedures")
+	public ResponseEntity<?> updateProcedure(@RequestBody Procedure procedure){
+		try {
+			return new ResponseEntity<>(nurseAssistantService.updateProcedure(procedure), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("Error updating this procedure. ", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

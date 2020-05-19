@@ -31,9 +31,10 @@ public class NurseAssistantService {
 	private StayPersistence stayPersistence;
 	@Autowired
 	private BedPersistence bedPersistence;
+	@Autowired
+	private RoomPersistence roomPersistence;
 
 	// ----------------User-----------------------
-
 	public User getUser(String username) {
 		return userPersistence.findByLoginUser(username);
 	}
@@ -55,7 +56,6 @@ public class NurseAssistantService {
 	}
 
 	// ----------------Nurse-----------------------
-
 	public Nurse getNurse(int id) {
 		return nursePersistence.findById(id)
 		.orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
@@ -82,8 +82,16 @@ public class NurseAssistantService {
 		return patientPersistence.getAllPatientsFromNurse(nurse.getNurseId());
 	}
 
-	// ---------------Oncall-----------------
+	public List<Patient> getPatientsByGovId(String nurseGovId) {
+		return patientPersistence.getPatietntsByGovId(nurseGovId);
+	}
 
+	// ---------------Rooms----------------
+	public List<Room> getRoomsByGovId(String nurseGovId) {
+		return roomPersistence.getRoomByNurseGovId(nurseGovId);
+	}
+
+	// ---------------Oncall----------------
 	public Oncall getOncall(int id) {
 		return oncallPersistence.findById(id)
 		.orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
@@ -185,4 +193,5 @@ public class NurseAssistantService {
 	public Bed getBedById(int bedId){
 		return bedPersistence.findByBedId(bedId);
 	}
+
 }

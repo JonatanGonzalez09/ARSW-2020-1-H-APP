@@ -12,4 +12,7 @@ public interface PatientPersistence extends JpaRepository<Patient, Integer> {
     
     @Query(value = "select p.* from patient p join stay on p.patient_id = stay.patient_id join undergoes on stay.stay_id = undergoes.stay_id join nurse on nurse.nurse_id = undergoes.nurse_id where nurse.nurse_id = :nurseId", nativeQuery = true)
     List<Patient> getAllPatientsFromNurse(int nurseId);
+
+    @Query(value = "select p.* from patient p join stay on p.patient_id = stay.patient_id join undergoes on stay.stay_id = undergoes.stay_id join nurse on undergoes.nurse_id = nurse.nurse_id join usuarios on nurse.usuarios_user_id = usuarios.user_id where usuarios.gov_id = :nurseGovId;", nativeQuery = true)
+    List<Patient> getPatietntsByGovId(String nurseGovId);    
 }

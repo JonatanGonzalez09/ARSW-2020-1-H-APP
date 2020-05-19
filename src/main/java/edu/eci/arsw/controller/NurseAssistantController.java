@@ -127,6 +127,27 @@ public class NurseAssistantController {
 		} 
 	}
 
+	@GetMapping("patients/nurse/{nurseGovId}")
+	public ResponseEntity<?> getPatientsByGovId(@PathVariable("nurseGovId") String nurseGovId){
+		try {
+			return new ResponseEntity<>(nurseAssistantService.getPatientsByGovId(nurseGovId), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No patient exist", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	//---------------Rooms-----------------
+	@GetMapping("rooms/nurse/{nurseGovId}")
+	public ResponseEntity<?> getRoomsByGovId(@PathVariable("nurseGovId") String nurseGovId){
+		try {
+			return new ResponseEntity<>(nurseAssistantService.getRoomsByGovId(nurseGovId), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No patient exist", HttpStatus.NOT_FOUND);
+		}
+	}
+
 	//---------------Oncall-----------------
 	@GetMapping("oncalls/{onCallId}")
 	public ResponseEntity<?> getOncall(@PathVariable("onCallId") int onCallId){

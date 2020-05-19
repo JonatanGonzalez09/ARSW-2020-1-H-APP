@@ -266,7 +266,7 @@ public class NurseManagerService {
 		for(Stay aux : staysList){
 			System.out.println("aux --- " + aux);
 			System.out.println("end time --- " + aux.getEndTime());
-			if(aux.getEndTime().equals(null)){
+			if(aux.getEndTime()==null){
 				auxStay = aux;
 			}
 		}

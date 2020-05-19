@@ -189,6 +189,16 @@ public class NurseAssistantService {
 		return stayPersistence.findByBed(bed);
 	}
 
+	public Stay updateStay(Stay stay) {
+		Stay tmpStay = stayPersistence.findById(stay.getStayId())
+		.orElseThrow(() -> new EntityNotFoundException(String.valueOf(stay.getStayId())));
+		tmpStay.setEndTime(stay.getEndTime());
+		tmpStay.setStartTime(stay.getStartTime());
+		tmpStay.setBed(stay.getBed());
+		tmpStay.setPatient(stay.getPatient());
+		return stayPersistence.save(tmpStay);
+	}
+
 	// -----------------Bed-------------
 	public Bed getBedById(int bedId){
 		return bedPersistence.findByBedId(bedId);

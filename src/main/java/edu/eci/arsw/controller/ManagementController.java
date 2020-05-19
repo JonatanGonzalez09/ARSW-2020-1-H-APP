@@ -621,7 +621,7 @@ public class ManagementController {
 	//----------------POST Stay-----------------------
 	@RequestMapping(method = RequestMethod.POST, value = "stays")
     public ResponseEntity<?> addStay(@RequestBody Stay stay) {
-		System.out.println(stay.toString());
+		System.out.println(stay.getStayId());
     	try {
   	      return new ResponseEntity<>(nurseManagerService.setStay(stay), HttpStatus.OK);
   	    } catch (Exception ex) {

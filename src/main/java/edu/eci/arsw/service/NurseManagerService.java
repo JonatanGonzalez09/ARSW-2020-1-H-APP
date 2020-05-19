@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.constraints.Null;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
@@ -258,8 +259,31 @@ public class NurseManagerService {
 		return stayPersistence.findByBed(bed);
 	}
 	
-	@Cacheable(cacheNames= "stay", key= "#stay.stayId")
+	//@Cacheable(cacheNames= "stay", key= "#stay.stayId")
 	public Stay setStay(Stay stay) {
+		Stay auxStay = null;
+		List <Stay> staysList = getStaysBypatientId(stay.getPatient());
+		for(Stay aux : staysList){
+			if(aux.getEndTime().equals(null)){
+				auxStay = aux;
+			}
+		}
+		Bed bedaux =  bedPersistence.findByBedId(stay.getBed().getBedId());
+		Patient patientAux = patienPersistence.findById(stay.getPatient().getPatientId()).get();
+		if(auxStay.equals(null)){
+			bedaux.addStay(stay);
+			patientAux.addStay(stay);
+			stay.setBed(bedaux);
+			stay.setPatient(patientAux);
+		}else{
+			bedaux.addStay(auxStay);
+			patientAux.addStay(auxStay);
+			auxStay.setBed(bedaux);
+			auxStay.setPatient(patientAux);
+			stay = auxStay;
+		}
+		patienPersistence.save(patientAux);
+		bedPersistence.save(bedaux);
 		return stayPersistence.save(stay);
 	}
 	

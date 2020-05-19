@@ -1,6 +1,7 @@
 package edu.eci.arsw.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -41,7 +42,7 @@ public class Bed implements Serializable {
 	//bi-directional many-to-one association to Stay
 	@JsonManagedReference(value="bed-stay")
 	@OneToMany(cascade=CascadeType.ALL,mappedBy="bed")
-	private List<Stay> stays;
+	private List<Stay> stays = new ArrayList<Stay>();
 
 	public Bed() {
 	}

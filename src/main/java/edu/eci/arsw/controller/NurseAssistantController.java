@@ -149,6 +149,27 @@ public class NurseAssistantController {
 		}
 	}
 
+	@GetMapping("room/patient/{patientId}")
+	public ResponseEntity<?> getRoomPatientByPatientId(@PathVariable("patientId") int patientId){
+		try {
+			return new ResponseEntity<>(nurseAssistantService.getRoomByPatientId(patientId), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No room exist to patient with this id", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	//---------------Beds-----------------
+	@GetMapping("bed/patient/{patientId}")
+	public ResponseEntity<?> getBedPatientByPatientId(@PathVariable("patientId") int patientId){
+		try {
+			return new ResponseEntity<>(nurseAssistantService.getBedByPatientId(patientId), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No bed exist to patient with this id", HttpStatus.NOT_FOUND);
+		}
+	}
+
 	//---------------Oncall-----------------
 	@GetMapping("oncalls/{onCallId}")
 	public ResponseEntity<?> getOncall(@PathVariable("onCallId") int onCallId){
@@ -224,6 +245,16 @@ public class NurseAssistantController {
 		}
 	}
 
+	@GetMapping("procedures/today/nurseGov/{nurseGovId}")
+	public ResponseEntity<?> getProceduresByGovId(@PathVariable("nurseGovId") String nurseGovId){
+		try {
+			return new ResponseEntity<>(nurseAssistantService.getProceduresByGovId(nurseGovId), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(NurseAssistantController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No procedures exist with this nurse Gov Id", HttpStatus.NOT_FOUND);
+		}
+	}
+
 	//----------------Undergoes----------------------
 	@GetMapping("undergoes")
 	public ResponseEntity<?> getAllUndergoes(){
@@ -287,7 +318,16 @@ public class NurseAssistantController {
 			return new ResponseEntity<>("No undergoes exist today", HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
+	@GetMapping("undergoes/today/nurseGov/{nurseGovId}")
+	public ResponseEntity<?> getUndeergoesByGovId(@PathVariable("nurseGovId") String nurseGovId){
+		try {
+			return new ResponseEntity<>(nurseAssistantService.getUndergoesByGovId(nurseGovId), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(NurseAssistantController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No undergoes exist with this nurse Gov Id", HttpStatus.NOT_FOUND);
+		}
+	}
 
 	//----------------Stay----------------------
 	@GetMapping("stays")

@@ -17,4 +17,7 @@ public interface BedPersistence extends JpaRepository<Bed, Integer> {
 
     @Query(value= "select b.* from bed b join room on b.roomnumber = room.roomnumber where room.unavailable = true", nativeQuery = true)
     List<Bed> getBedUnavailable();
+
+    @Query(value= "select b.* from bed b join stay on b.bed_id = stay.bed_id join patient on stay.patient_id = patient.patient_id where patient.patient_id = :patientId and stay.stay_id = (select max(stay.stay_id) from bed b join stay on b.bed_id = stay.bed_id join patient on stay.patient_id = patient.patient_id where patient.patient_id = :patientId)", nativeQuery = true)
+    Bed getBedByPatientId(int patientId);
 }

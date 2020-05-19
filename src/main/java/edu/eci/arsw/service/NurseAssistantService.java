@@ -91,6 +91,10 @@ public class NurseAssistantService {
 		return roomPersistence.getRoomByNurseGovId(nurseGovId);
 	}
 
+	public Object getRoomByPatientId(int patientId) {
+		return roomPersistence.getRoomByPatientId(patientId);
+	}
+
 	// ---------------Oncall----------------
 	public Oncall getOncall(int id) {
 		return oncallPersistence.findById(id)
@@ -148,6 +152,10 @@ public class NurseAssistantService {
 		return undergoesPersistence.save(undergoesTmp);
 	}
 
+	public List<Undergoes> getUndergoesByGovId(String nurseGovId) {
+		return undergoesPersistence.getUndergoesByNurseGovId(nurseGovId);
+	}
+
 	// -----------------Procedures-------------
 	public Procedure getProcedure(int idProcedure) {
 		return procedurePersistence.findById(idProcedure)
@@ -164,6 +172,10 @@ public class NurseAssistantService {
 		tmp.setName(procedure.getName());
 		tmp.setUndergoes(procedure.getUndergoes());
 		return procedurePersistence.save(tmp);
+	}
+
+	public List<Procedure> getProceduresByGovId(String nurseGovId) {
+		return procedurePersistence.getProceduresByGovId(nurseGovId);
 	}
 
 	// -----------------Block-------------
@@ -202,6 +214,10 @@ public class NurseAssistantService {
 	// -----------------Bed-------------
 	public Bed getBedById(int bedId){
 		return bedPersistence.findByBedId(bedId);
+	}
+
+	public Bed getBedByPatientId(int patientId) {
+		return bedPersistence.getBedByPatientId(patientId);
 	}
 
 }

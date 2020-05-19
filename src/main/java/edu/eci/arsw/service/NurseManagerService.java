@@ -61,6 +61,10 @@ public class NurseManagerService {
 		tmpBed.setStays(bed.getStays());
 		return bedPersistence.save(tmpBed);		
 	} 
+
+	public Bed getBedByPatientId(int patientId) {
+		return bedPersistence.getBedByPatientId(patientId);
+	}
 	//-----------------Block----------------------
 	
 	public List<Block> getAllBlocks(){

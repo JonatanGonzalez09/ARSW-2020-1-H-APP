@@ -22,4 +22,7 @@ public interface ProcedurePersistence extends JpaRepository<Procedure, Integer> 
 
     @Query(value = "select p.* from \"procedure\" p join undergoes on p.procedure_id = undergoes.procedure_id join stay on undergoes.stay_id = stay.stay_id where stay.patient_id = :patientId", nativeQuery = true)
     List<Procedure> getProcedureByPatientId(int patientId);
+
+    @Query(value = "select p.* from \"procedure\" p join undergoes on p.procedure_id = undergoes.procedure_id join nurse on undergoes.nurse_id = nurse.nurse_id join on_call on nurse.nurse_id = on_call.nurse_id join usuarios on nurse.usuarios_user_id = usuarios.user_id where usuarios.gov_id = :nurseGovId and on_call.oncallend is null", nativeQuery = true)
+    List<Procedure> getProceduresByGovId(String nurseGovId);
 }

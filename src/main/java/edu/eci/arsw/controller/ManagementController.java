@@ -541,6 +541,16 @@ public class ManagementController {
 		}
 	}
 
+	@GetMapping("bed/patient/{patientId}")
+	public ResponseEntity<?> getBedPatientByPatientId(@PathVariable("patientId") int patientId){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getBedByPatientId(patientId), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No bed exist to patient with this id", HttpStatus.NOT_FOUND);
+		}
+	}
+
 	//---------------- Block-----------------------
 	@GetMapping("block/patient/{patientId}")
 	public ResponseEntity<?> getBlockByIdPatient(@PathVariable("patientId") int patientId){

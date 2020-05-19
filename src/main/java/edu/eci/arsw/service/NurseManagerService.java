@@ -261,6 +261,7 @@ public class NurseManagerService {
 	//@Cacheable(cacheNames= "stay", key= "#stay.stayId")
 	public Bed setStay(Stay stay) {
 		stay.getBed().addStay(stay);
+		stay.getPatient().addStay(stay);
 		return bedPersistence.save(stay.getBed());
 	}
 	

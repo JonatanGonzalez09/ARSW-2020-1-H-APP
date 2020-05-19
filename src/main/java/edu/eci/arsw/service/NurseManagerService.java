@@ -258,8 +258,16 @@ public class NurseManagerService {
 		return stayPersistence.findByBed(bed);
 	}
 	
-	@Cacheable(cacheNames= "stay", key= "#stay.stayId")
+	//@Cacheable(cacheNames= "stay", key= "#stay.stayId")
 	public Stay setStay(Stay stay) {
+		Bed bedaux =  bedPersistence.findByBedId(stay.getBed().getBedId());
+		bedaux.addStay(stay);
+		Patient patientAux = patienPersistence.findById(stay.getPatient().getPatientId()).get();
+		patientAux.addStay(stay);
+		stay.setBed(bedaux);
+		stay.setPatient(patientAux);
+		patienPersistence.save(patientAux);
+		bedPersistence.save(bedaux);
 		return stayPersistence.save(stay);
 	}
 	

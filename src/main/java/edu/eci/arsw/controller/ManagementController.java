@@ -1,9 +1,11 @@
 package edu.eci.arsw.controller;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +36,7 @@ import edu.eci.arsw.service.NurseManagerService;
 @CrossOrigin(origins = "*")
 public class ManagementController {
 
+	public ArrayList<Pair<Integer, Integer>> intList = new ArrayList<Pair<Integer, Integer>>();
     @Autowired
 	private NurseManagerService nurseManagerService;
 
@@ -618,6 +621,7 @@ public class ManagementController {
 	//----------------POST Stay-----------------------
 	@RequestMapping(method = RequestMethod.POST, value = "stays")
     public ResponseEntity<?> addStay(@RequestBody Stay stay) {
+		System.out.println(stay.getStayId());
     	try {
   	      return new ResponseEntity<>(nurseManagerService.setStay(stay), HttpStatus.OK);
   	    } catch (Exception ex) {

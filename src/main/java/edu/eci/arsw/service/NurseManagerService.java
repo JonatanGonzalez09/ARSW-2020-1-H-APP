@@ -264,8 +264,6 @@ public class NurseManagerService {
 		Stay auxStay = null;
 		List <Stay> staysList = getStaysBypatientId(stay.getPatient());
 		for(Stay aux : staysList){
-			System.out.println("aux --- " + aux);
-			System.out.println("end time --- " + aux.getEndTime());
 			if(aux.getEndTime()==null){
 				auxStay = aux;
 			}
@@ -369,6 +367,18 @@ public class NurseManagerService {
 	
 	//@Cacheable(cacheNames= "undergoes", key= "#undergoes.undergoesId")
 	public Undergoes setUndergoes(Undergoes undergoes) {
+		Procedure auxProce = procedurePersistence.findById(undergoes.getProcedure().getProcedureId()).get();
+		Stay auxStay = stayPersistence.findByStayId(undergoes.getStay().getStayId());
+		Nurse auxNurse = nursePersistence.findById(undergoes.getNurse().getNurseId()).get();
+
+		auxProce.addUndergoe(undergoes);
+		auxStay.addUndergoe(undergoes);
+		auxNurse.addUndergoe(undergoes);
+
+		procedurePersistence.save(auxProce);
+		stayPersistence.save(auxStay);
+		nursePersistence.save(auxNurse);
+
 		return undergoesPersistence.save(undergoes);
 	}
 	

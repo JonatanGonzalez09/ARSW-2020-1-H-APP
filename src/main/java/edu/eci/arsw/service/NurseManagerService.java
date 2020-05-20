@@ -403,8 +403,8 @@ public class NurseManagerService {
 	}
 
 	//-----------------User----------------------
-	public List<User> getAllUsers(){
-		return userPersistence.findAll();
+	public List<User> getUsersNurse(){
+		return userPersistence.getAllNurses();
 	}
 
 	public List<User> getAllActivesUser(boolean is){

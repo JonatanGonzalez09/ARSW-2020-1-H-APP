@@ -36,6 +36,6 @@ public interface UndergoesPersistence extends JpaRepository<Undergoes, Integer> 
 	@Query(value= "select p.*, u.* from \"procedure\" p join undergoes u on p.procedure_id = u.procedure_id join nurse on u.nurse_id = nurse.nurse_id where nurse.nurse_id = :nurseId and u.done is null and DATE(u.\"date\") = (select DATE(now()))", nativeQuery = true)
 	List<Undergoes> getUndergoesNoDoneByNurseId(int nurseId);
 
-	@Query(value= "select undergoes.* from \"procedure\" p join undergoes on p.procedure_id = undergoes.procedure_id join nurse on undergoes.nurse_id = nurse.nurse_id join on_call on nurse.nurse_id = on_call.nurse_id join usuarios on nurse.usuarios_user_id = usuarios.user_id where usuarios.gov_id = :nurseGovId and on_call.oncallend is null", nativeQuery = true)
+	@Query(value= "select undergoes.* from \"procedure\" p join undergoes on p.procedure_id = undergoes.procedure_id join nurse on undergoes.nurse_id = nurse.nurse_id join on_call on nurse.nurse_id = on_call.nurse_id join usuarios on nurse.usuarios_user_id = usuarios.user_id where usuarios.gov_id = :nurseGovId and on_call.oncallend is null and done is null", nativeQuery = true)
 	List<Undergoes> getUndergoesByNurseGovId(String nurseGovId);
 }

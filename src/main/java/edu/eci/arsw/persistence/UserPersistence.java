@@ -19,4 +19,7 @@ public interface UserPersistence extends JpaRepository<User, Integer> {
 	User findByEmail(String email);
 	User findByGovIdAndGovType(String govId, String govType);
 	User findByNurses(Nurse nurse);
+
+	@Query(value = "select * from usuarios u where rol='ASSISTANT' or rol='MANAGER'", nativeQuery = true)
+	List<User> getAllNurses();
 }

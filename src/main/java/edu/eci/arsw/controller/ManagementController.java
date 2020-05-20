@@ -84,7 +84,7 @@ public class ManagementController {
     @GetMapping("users")
 	public ResponseEntity<?> getUsers(){
 		try {
-			return new ResponseEntity<>(nurseManagerService.getAllUsers(), HttpStatus.OK);
+			return new ResponseEntity<>(nurseManagerService.getUsersNurse(), HttpStatus.OK);
 		}catch (Exception ex) { 
 			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
 			return new ResponseEntity<>("No exist users", HttpStatus.INTERNAL_SERVER_ERROR);

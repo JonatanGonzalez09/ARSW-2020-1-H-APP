@@ -406,6 +406,10 @@ public class NurseManagerService {
 		return undergoesPersistence.getUndergoesNoDoneByNurseId(nurseId);
 	}
 
+	public List<Undergoes> getUndergoesNotDoneTodayByNurseId(int nurseId) {
+		return undergoesPersistence.getUndergoesNotDoneTodayByNurseId(nurseId);
+	}
+
 	//-----------------User----------------------
 	public List<User> getUsersNurse(){
 		return userPersistence.getAllNurses();

@@ -89,8 +89,6 @@ public class ManagementController {
 			return new ResponseEntity<>("No nurses exist with this block id and this date", HttpStatus.NOT_FOUND);
 		} 
 	}
-
-
 	
     //----------------User-----------------------
     @GetMapping("users")
@@ -276,6 +274,16 @@ public class ManagementController {
 			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
 			return new ResponseEntity<>("No undergoes exist today with this nurse id", HttpStatus.NOT_FOUND);
 		} 
+	}
+
+	@GetMapping("undergoes/notdone/today/nurse/{nurseId}")
+	public ResponseEntity<?> getUndergoesNotDoneTodayByNurseId(@PathVariable("nurseId") int nurseId){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getUndergoesNotDoneTodayByNurseId(nurseId), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No exist not done undergoes for this id of nurse", HttpStatus.NOT_FOUND);
+		}
 	}
 
 	@GetMapping("undergoes/notdone/nurse/{nurseId}")

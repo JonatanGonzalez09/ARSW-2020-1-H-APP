@@ -126,23 +126,21 @@ https://drive.google.com/drive/folders/1hvCMZi-28FHQ9eHM8lZRvgDKDoNwJfgX
 
 ![Performance 1 ](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/Non%20functional%20Requierments/Performance1.png)
 
-![Video Performance 1](https://drive.google.com/open?id=1sC4TvrJD1QKhwfeRW6HEX3eE7-0ee65j)
+[Video Performance 1](https://drive.google.com/open?id=1sC4TvrJD1QKhwfeRW6HEX3eE7-0ee65j)
 
 ![Performance 2 ](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/Non%20functional%20Requierments/Performance2.png)
 
-![Video Performance 2](https://drive.google.com/open?id=1H61pq3RZ2M1fbGCCk4N2ggrZMZqXFRl0)
+[Video Performance 2](https://drive.google.com/open?id=1H61pq3RZ2M1fbGCCk4N2ggrZMZqXFRl0)
 
 ## Usabilidad
 
 ![Usabilidad 1 ](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/Non%20functional%20Requierments/Usability1.png)
 
-
-![Video Usabilidad 1](https://drive.google.com/open?id=1qiVlI3reiAZBozzkAzxOTwlE2t0Pxse5)
-
+[Video Usabilidad 1](https://drive.google.com/open?id=1qiVlI3reiAZBozzkAzxOTwlE2t0Pxse5)
 
 ![Usabilidad 2 ](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/Non%20functional%20Requierments/Usability2.png)
 
-![Video Usabilidad 2](https://drive.google.com/open?id=1_ZWCdHsiW8oWDRj80PiL_gNv2kNjoe3k)
+[Video Usabilidad 2](https://drive.google.com/open?id=1_ZWCdHsiW8oWDRj80PiL_gNv2kNjoe3k)
 
 ## Escalabiliad
 
@@ -154,17 +152,17 @@ https://drive.google.com/drive/folders/1hvCMZi-28FHQ9eHM8lZRvgDKDoNwJfgX
 
 ![Disponibilidad 2 ](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/Non%20functional%20Requierments/Disponibilidad2.png)
 
-![Video Disponibilidad 2](https://drive.google.com/open?id=1ljqj3FlxbihOhZNMHQRELqG21ml-GlIc)
+[Video Disponibilidad 2](https://drive.google.com/open?id=1ljqj3FlxbihOhZNMHQRELqG21ml-GlIc)
 
 ## Seguridad
 
 ![Seguridad 1 ](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/Non%20functional%20Requierments/Seguridad1.png)
 
-![Video Seguridad 1](https://drive.google.com/open?id=1i1y8CY2pu4euvx3UvoaLTrJwgXoi0lno)
+[Video Seguridad 1](https://drive.google.com/open?id=1i1y8CY2pu4euvx3UvoaLTrJwgXoi0lno)
 
 ![Seguridad 2 ](https://github.com/JonatanGonzalez09/ARSW-2020-1-H-APP/blob/master/resources/Non%20functional%20Requierments/Seguridad2.png)
 
-![Video Seguridad 2](https://drive.google.com/open?id=1ekp8S61wQlXRioPpg404CT8Z9YQH5f5a)
+[Video Seguridad 2](https://drive.google.com/open?id=1ekp8S61wQlXRioPpg404CT8Z9YQH5f5a)
 
 Abra los links para observar el diseño de la interfaz gráfica usando el Wireframe **Balsamiq**
 

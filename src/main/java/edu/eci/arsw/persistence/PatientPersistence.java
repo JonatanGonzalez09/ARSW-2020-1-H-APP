@@ -17,6 +17,9 @@ public interface PatientPersistence extends JpaRepository<Patient, Integer> {
     List<Patient> getPatietntsByGovId(String nurseGovId);
 
     @Query(value = "select p.* from patient p left join stay s on p.patient_id = s.patient_id where s.patient_id is null", nativeQuery = true)
-    List<Patient> getAllPatientsWithoutStay();  
+    List<Patient> getAllPatientsWithoutStay();
+
+    @Query(value = "select p.* from patient p join stay s on p.patient_id = s.patient_id", nativeQuery = true)
+    List<Patient> getPatientsWithStay();  
     
 }

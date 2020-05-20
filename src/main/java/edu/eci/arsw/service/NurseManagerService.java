@@ -186,6 +186,10 @@ public class NurseManagerService {
 		return patienPersistence.getAllPatientsWithoutStay();
 	}
 
+	public List<Patient> getPatientsFulltStay() {
+		return patienPersistence.getPatientsWithStay();
+	}
+
 	//-----------------Procedure----------------------
 	public List<Procedure> getProcedures(){
 		return procedurePersistence.findAll();

@@ -530,6 +530,16 @@ public class ManagementController {
 		}
 	}
 
+	@GetMapping("patients/fullStay")
+	public ResponseEntity<?> getPatientsFullStay(){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getPatientsFulltStay(), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("There are no patients Full Stay", HttpStatus.NOT_FOUND);
+		}
+	}
+
 	//---------------- Bed -----------------------
 	@GetMapping("beds")
 	public ResponseEntity<?> getBeds(){

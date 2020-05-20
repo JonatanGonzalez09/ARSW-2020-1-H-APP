@@ -79,6 +79,18 @@ public class ManagementController {
 			return new ResponseEntity<>("No nurses exist with this block id and this date", HttpStatus.NOT_FOUND);
 		} 
 	}
+
+	@GetMapping("nurses-assistant/block/nurseGovId/{nurseGovId}")
+	public ResponseEntity<?> getNursesByNurseGovId(@PathVariable("nurseGovId") String nurseGovId){
+		try {
+			return new ResponseEntity<>(nurseManagerService.getNursesByNurseGovId(nurseGovId), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(ManagementController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No nurses exist with this block id and this date", HttpStatus.NOT_FOUND);
+		} 
+	}
+
+
 	
     //----------------User-----------------------
     @GetMapping("users")

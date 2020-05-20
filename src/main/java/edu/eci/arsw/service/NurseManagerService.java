@@ -114,6 +114,10 @@ public class NurseManagerService {
 		return nursePersistence.getNursByBlockIdToday(blockId);
 	}
 
+	public List<Nurse> getNursesByNurseGovId(String nurseGovId) {
+		return nursePersistence.getNursesByNurseGovId(nurseGovId);
+	}
+
 
 	//-----------------Oncall----------------------
 	public List<Oncall> getAllOncalls(){

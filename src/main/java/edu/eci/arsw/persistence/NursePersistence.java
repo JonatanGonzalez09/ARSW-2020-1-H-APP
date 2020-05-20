@@ -25,5 +25,6 @@ public interface NursePersistence extends JpaRepository<Nurse, Integer> {
 	@Query(value= "select * from nurse n join on_call on n.nurse_id = on_call.nurse_id join block on on_call.blockcode = block.blockcode where block.blockcode = :blockId and \"position\"='asst' and DATE (on_call.oncallstart) = (select now()::date)", nativeQuery = true)
 	List<Nurse> getNursByBlockIdToday(int blockId);
 
-	
+	@Query(value= "select n.* from nurse n join usuarios on n.usuarios_user_id = usuarios.user_id join on_call on n.nurse_id = on_call.nurse_id join block on on_call.blockcode = block.blockcode where n.\"position\" = 'asst' and block.blockcode = (select on_call.blockcode from nurse n join usuarios on n.usuarios_user_id = usuarios.user_id join on_call on n.nurse_id = on_call.nurse_id where usuarios.gov_id = :nurseGovId)" , nativeQuery = true)
+	List<Nurse> getNursesByNurseGovId(String nurseGovId);
 }

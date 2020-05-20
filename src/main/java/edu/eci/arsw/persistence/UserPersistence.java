@@ -23,6 +23,6 @@ public interface UserPersistence extends JpaRepository<User, Integer> {
 	@Query(value = "select * from usuarios u where rol='ASSISTANT' or rol='MANAGER'", nativeQuery = true)
 	List<User> getAllNurses();
 	
-	@Query(value="select us.* from usuarios us join nurse n on us.user_id = n.usuarios_user_id join on_call on n.nurse_id = on_call.nurse_id join block on on_call.blockcode = block.blockcode where n.\"position\"= 'mngr' and block.blockcode = (select block.blockcode from usuarios us join nurse on us.user_id = nurse.usuarios_user_id join on_call on nurse.nurse_id = on_call.nurse_id join block on on_call.blockcode = block.blockcode where us.login_user = :userNurseAssistant and on_call.oncallend is null)", nativeQuery = true)
-	User getBossNurseByUser(String userNurseAssistant);
+	@Query(value="select us.* from usuarios us join nurse n on us.user_id = n.usuarios_user_id join on_call on n.nurse_id = on_call.nurse_id join block on on_call.blockcode = block.blockcode where n.\"position\"= 'mngr' and block.blockcode = (select block.blockcode from usuarios us join nurse on us.user_id = nurse.usuarios_user_id join on_call on nurse.nurse_id = on_call.nurse_id join block on on_call.blockcode = block.blockcode where us.gov_id = :nurseAssistantGovId and on_call.oncallend is null)", nativeQuery = true)
+	User getBossNurseByUser(String nurseAssistantGovId);
 }

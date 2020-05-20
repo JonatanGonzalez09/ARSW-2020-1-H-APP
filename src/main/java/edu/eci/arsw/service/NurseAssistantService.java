@@ -55,8 +55,8 @@ public class NurseAssistantService {
 		return userPersistence.save(tmp);
 	}
 
-	public User getBossNurse(String userNurseAssistant) {
-		return userPersistence.getBossNurseByUser(userNurseAssistant);
+	public User getBossNurse(String nurseAssistantGovId) {
+		return userPersistence.getBossNurseByUser(nurseAssistantGovId);
 	}
 
 	// ----------------Nurse-----------------------

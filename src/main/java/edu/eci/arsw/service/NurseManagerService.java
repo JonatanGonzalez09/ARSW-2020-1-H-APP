@@ -181,7 +181,11 @@ public class NurseManagerService {
 	public Object getPatientsByNurseId(Nurse nurse) {
 		return patienPersistence.getAllPatientsFromNurse(nurse.getNurseId());
 	}
-		
+	
+	public List<Patient> getPatientsNotStay() {
+		return patienPersistence.getAllPatientsWithoutStay();
+	}
+
 	//-----------------Procedure----------------------
 	public List<Procedure> getProcedures(){
 		return procedurePersistence.findAll();

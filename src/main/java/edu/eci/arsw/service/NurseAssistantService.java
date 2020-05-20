@@ -55,6 +55,10 @@ public class NurseAssistantService {
 		return userPersistence.save(tmp);
 	}
 
+	public User getBossNurse(String userNurseAssistant) {
+		return userPersistence.getBossNurseByUser(userNurseAssistant);
+	}
+
 	// ----------------Nurse-----------------------
 	public Nurse getNurse(int id) {
 		return nursePersistence.findById(id)

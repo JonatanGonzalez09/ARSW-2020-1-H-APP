@@ -85,6 +85,16 @@ public class NurseAssistantController {
 		} 
 	}
 
+	@GetMapping("boss/nurse/user/{nurseAssistantGovId}")
+	public ResponseEntity<?> getBossNurseById(@PathVariable("urseAssistantGovId") String urseAssistantGovId){
+		try {
+			return new ResponseEntity<>(nurseAssistantService.getBossNurse(urseAssistantGovId), HttpStatus.OK);
+		}catch (Exception ex) { 
+			Logger.getLogger(NurseAssistantController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("No boss nurse exist", HttpStatus.NOT_FOUND);
+		} 
+	}
+
 	//----------------Nurse-----------------------
 	@GetMapping("nurse/{nurseId}")
 	public ResponseEntity<?> getNurseById(@PathVariable("nurseId") int nurseId){
